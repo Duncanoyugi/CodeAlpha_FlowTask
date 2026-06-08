@@ -1,0 +1,52 @@
+### Health Check
+GET http://localhost:5000/health
+
+### API Health Check
+GET http://localhost:5000/api/v1/health
+
+### Register User
+POST http://localhost:5000/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "duncanoyugi2001@gmail.com",
+  "firstName": "Duncan",
+  "lastName": "Ochieng",
+  "password": "Dante@1234"
+}
+
+### Login User
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "duncanoyugi2001@gmail.com",
+  "password": "Dante@1234"
+}
+
+### Refresh Token
+# @name refreshTokenRequest
+POST http://localhost:5000/api/v1/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXE1cmtkdGMwMDAwYjl4b3MyaTAxdzVtIiwiZW1haWwiOiJkdW5jYW5veXVnaTIwMDFAZ21haWwuY29tIiwiaWF0IjoxNzgwOTU2NjQ3LCJleHAiOjE3ODE1NjE0NDd9.ZOlnLG14QtYTodjZKtB-SBBIhuOTF__B27BPVn_Oht4"
+}
+
+### Get Current User (Protected)
+# @name getMeRequest
+GET http://localhost:5000/api/v1/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXE1cmtkdGMwMDAwYjl4b3MyaTAxdzVtIiwiZW1haWwiOiJkdW5jYW5veXVnaTIwMDFAZ21haWwuY29tIiwiaWF0IjoxNzgwOTU2NjQ3LCJleHAiOjE3ODA5NTc1NDd9.YTgliS0kSr4WFeVK3qTLtWyxOIrMa8pPutHkpIl4KS4
+
+### Logout (Protected)
+POST http://localhost:5000/api/v1/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXE1cmtkdGMwMDAwYjl4b3MyaTAxdzVtIiwiZW1haWwiOiJkdW5jYW5veXVnaTIwMDFAZ21haWwuY29tIiwiaWF0IjoxNzgwOTU2NjQ3LCJleHAiOjE3ODA5NTc1NDd9.YTgliS0kSr4WFeVK3qTLtWyxOIrMa8pPutHkpIl4KS4
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXE1cmtkdGMwMDAwYjl4b3MyaTAxdzVtIiwiZW1haWwiOiJkdW5jYW5veXVnaTIwMDFAZ21haWwuY29tIiwiaWF0IjoxNzgwOTU2NjQ3LCJleHAiOjE3ODE1NjE0NDd9.ZOlnLG14QtYTodjZKtB-SBBIhuOTF__B27BPVn_Oht4"
+}
+
+### Logout from All Devices (Protected)
+POST http://localhost:5000/api/v1/auth/logout-all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbXE1cmtkdGMwMDAwYjl4b3MyaTAxdzVtIiwiZW1haWwiOiJkdW5jYW5veXVnaTIwMDFAZ21haWwuY29tIiwiaWF0IjoxNzgwOTU2NjQ3LCJleHAiOjE3ODA5NTc1NDd9.YTgliS0kSr4WFeVK3qTLtWyxOIrMa8pPutHkpIl4KS4

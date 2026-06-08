@@ -1,0 +1,90 @@
+import { Request, Response, NextFunction } from 'express';
+import { Prisma } from '../generated/prisma';
+import { AppError } from '../utils/error';
+import { HttpStatus } from '../constants/http';
+import logger from '../lib/logger';
+
+export const errorHandler = (
+  err: Error | AppError | Prisma.PrismaClientKnownRequestError,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+): void => {
+  // Log error
+  logger.error({
+    message: err.message,
+    stack: err.stack,
+    url: req.url,
+    method: req.method,
+    ip: req.ip,
+    userId: (req as any).user?.id,
+  });
+
+  // Handle AppError (our custom errors)
+  if (err instanceof AppError) {
+    res.status(err.statusCode).json({
+      success: false,
+      message: err.message,
+      details: err.details,
+      ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    });
+    return;
+  }
+
+  // Handle Prisma known errors
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    switch (err.code) {
+      case 'P2002':
+        res.status(HttpStatus.CONFLICT).json({
+          success: false,
+          message: `A record with this ${err.meta?.target} already exists`,
+        });
+        return;
+      case 'P2025':
+        res.status(HttpStatus.NOT_FOUND).json({
+          success: false,
+          message: 'Record not found',
+        });
+        return;
+      case 'P2003':
+        res.status(HttpStatus.BAD_REQUEST).json({
+          success: false,
+          message: 'Invalid reference to related record',
+        });
+        return;
+      default:
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: 'Database error occurred',
+          ...(process.env.NODE_ENV === 'development' && { code: err.code }),
+        });
+        return;
+    }
+  }
+
+  // Handle JWT errors
+  if (err.name === 'JsonWebTokenError') {
+    res.status(HttpStatus.UNAUTHORIZED).json({
+      success: false,
+      message: 'Invalid token',
+    });
+    return;
+  }
+
+  if (err.name === 'TokenExpiredError') {
+    res.status(HttpStatus.UNAUTHORIZED).json({
+      success: false,
+      message: 'Token expired',
+    });
+    return;
+  }
+
+  // Default error
+  res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+    success: false,
+    message: process.env.NODE_ENV === 'production' 
+      ? 'Something went wrong' 
+      : err.message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+  });
+};

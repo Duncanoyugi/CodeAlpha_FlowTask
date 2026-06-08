@@ -1,0 +1,18 @@
+2026-06-09 00:50:54:5054 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-09 00:50:54:5054 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-09 00:50:54:5054 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-09 01:01:59:159 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-09 01:01:59:159 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-09 01:01:59:159 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-09 01:07:18:718 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-09 01:07:18:718 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-09 01:07:18:718 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-09 01:07:36:736 [35mhttp[39m: [35mGET /health[39m
+2026-06-09 01:07:51:751 [35mhttp[39m: [35mGET /api/v1/health[39m
+2026-06-09 01:09:41:941 [35mhttp[39m: [35mPOST /api/v1/auth/register[39m
+2026-06-09 01:10:46:1046 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-09 01:14:22:1422 [35mhttp[39m: [35mPOST /api/v1/auth/refresh-token[39m
+2026-06-09 01:14:51:1451 [35mhttp[39m: [35mPOST /api/v1/auth/logout[39m
+2026-06-09 01:48:38:4838 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-09 01:48:38:4838 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-09 01:48:38:4838 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m

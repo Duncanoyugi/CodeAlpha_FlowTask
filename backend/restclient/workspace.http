@@ -1,0 +1,59 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Create Workspace
+# @name createWorkspace
+POST http://localhost:5000/api/v1/workspaces
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "My Awesome Workspace",
+  "description": "This is my first workspace"
+}
+
+### 3. Get All User Workspaces
+GET http://localhost:5000/api/v1/workspaces
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 4. Get Workspace by ID
+# @name getWorkspace
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 5. Update Workspace
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Updated Workspace Name",
+  "description": "This description has been updated"
+}
+
+### 6. Get Workspace Members
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/members
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 7. Update Member Role
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/members/MEMBER_ID/role
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "role": "ADMIN"
+}
+
+### 8. Remove Member
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/members/MEMBER_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 9. Delete Workspace
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN

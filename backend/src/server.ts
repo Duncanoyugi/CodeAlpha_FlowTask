@@ -1,10 +1,23 @@
-import dotenv from "dotenv";
-import app from "./app";
+import app from './app';
+import { env } from './config/env';
+import { connectDatabase } from './config/database';
+import logger from './lib/logger';
 
-dotenv.config();
+const PORT = env.PORT;
 
-const PORT = process.env.PORT || 5000;
+const startServer = async () => {
+  try {
+    await connectDatabase();
+    
+    app.listen(PORT, () => {
+      logger.info(`🚀 Server running on http://localhost:${PORT}`);
+      logger.info(`📝 Environment: ${env.NODE_ENV}`);
+      logger.info(`🔗 Frontend URL: ${env.FRONTEND_URL}`);
+    });
+  } catch (error) {
+    logger.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+startServer();

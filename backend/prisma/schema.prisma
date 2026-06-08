@@ -1,0 +1,487 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== ENUMS ====================
+
+enum Role {
+  ADMIN // Can manage workspace, projects, members (except owner functions)
+  MEMBER // Can create tasks, comment, move assigned tasks
+  VIEWER // Read-only access
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum NotificationType {
+  TASK_ASSIGNED
+  COMMENT_ADDED
+  MENTION
+  INVITE_RECEIVED
+  DUE_DATE
+  TASK_COMPLETED
+  MEMBER_JOINED
+}
+
+enum EntityType {
+  TASK
+  PROJECT
+  BOARD
+  COLUMN
+  COMMENT
+  WORKSPACE
+  MEMBER
+}
+
+enum Action {
+  CREATED
+  UPDATED
+  MOVED
+  ASSIGNED
+  COMPLETED
+  DELETED
+  ARCHIVED
+  RESTORED
+  COMMENT_ADDED
+  COMMENT_DELETED
+  MEMBER_INVITED
+  MEMBER_REMOVED
+  ROLE_CHANGED
+}
+
+// ==================== USER & AUTH ====================
+
+model User {
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  firstName            String
+  lastName             String
+  passwordHash         String
+  avatar               String? // Cloudinary URL
+  isVerified           Boolean   @default(false)
+  verifyToken          String?   @unique
+  verifyTokenExpiresAt DateTime?
+  resetToken           String?   @unique
+  resetTokenExpiresAt  DateTime?
+
+  // Relations
+  workspaces      WorkspaceMember[]
+  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner")
+  createdProjects Project[]         @relation("ProjectCreator")
+  reportedTasks   Task[]            @relation("TaskReporter")
+  assignedTasks   Task[]            @relation("TaskAssignee")
+  comments        Comment[]
+  attachments     Attachment[]
+  notifications   Notification[]
+  activities      Activity[]
+  sessions        UserSession[]
+  refreshTokens   RefreshToken[]
+  invites         Invite[]          @relation("InviteRecipient") // Invites received
+  sentInvites     Invite[]          @relation("InviteCreator") // Invites sent
+  projectMembers  ProjectMember[]
+  commentMentions CommentMention[]
+  taskHistory     TaskHistory[] // ADDED: Fix #5
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model UserSession {
+  id           String   @id @default(cuid())
+  userId       String
+  tokenId      String // JTI from JWT
+  ipAddress    String?
+  userAgent    String?
+  lastActiveAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_sessions")
+}
+
+// ==================== WORKSPACE ====================
+
+model Workspace {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  logo        String?
+  ownerId     String
+
+  // Relations
+  owner      User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  members    WorkspaceMember[]
+  projects   Project[]
+  invites    Invite[]
+  activities Activity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id          String @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        Role   @default(MEMBER)
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([userId])
+  @@index([workspaceId])
+  @@map("workspace_members")
+}
+
+model Invite {
+  id          String    @id @default(cuid())
+  workspaceId String
+  email       String? // If null, invite link only (no email target)
+  token       String    @unique
+  role        Role      @default(MEMBER)
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  createdBy   String // Track who sent the invite
+  recipientId String? // ADDED: Fix #1 - For invites received by registered users
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  creator   User      @relation("InviteCreator", fields: [createdBy], references: [id])
+  recipient User?     @relation("InviteRecipient", fields: [recipientId], references: [id]) // ADDED: Fix #1
+
+  createdAt DateTime @default(now())
+
+  @@map("invites")
+}
+
+// ==================== PROJECT ====================
+
+model Project {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  description String?
+  color       String? // Hex color code #RRGGBB
+  startDate   DateTime?
+  endDate     DateTime?
+  createdBy   String
+  deletedAt   DateTime? // Soft delete
+
+  // Relations
+  workspace  Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  creator    User            @relation("ProjectCreator", fields: [createdBy], references: [id])
+  boards     Board[]
+  activities Activity[]
+  members    ProjectMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([workspaceId, name])
+  @@index([workspaceId])
+  @@map("projects")
+}
+
+// ProjectMember - Restrict which workspace members can access specific projects
+model ProjectMember {
+  id        String @id @default(cuid())
+  projectId String
+  userId    String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_members")
+}
+
+// ==================== BOARD & COLUMN ====================
+
+model Board {
+  id        String    @id @default(cuid())
+  projectId String
+  name      String
+  deletedAt DateTime? // Soft delete
+
+  // Relations
+  project Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  columns Column[]
+  tasks   Task[]
+  labels  Label[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([projectId, name])
+  @@index([projectId])
+  @@map("boards")
+}
+
+model Column {
+  id       String @id @default(cuid())
+  boardId  String
+  name     String
+  position Int // Default: 100, 200, 300, 400, 500 (gaps for insertion)
+
+  // Relations
+  board Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([boardId, name])
+  @@index([boardId])
+  @@map("columns")
+}
+
+// ==================== TASK SYSTEM ====================
+
+model Task {
+  id          String    @id @default(cuid())
+  boardId     String
+  columnId    String
+  title       String
+  description String? // Rich text (HTML/Markdown)
+  position    Int // Position within column (100, 200, 300...)
+  priority    Priority  @default(MEDIUM)
+  dueDate     DateTime?
+  reporterId  String
+  assigneeId  String?
+  deletedAt   DateTime? // Soft delete
+
+  // Relations
+  board         Board            @relation(fields: [boardId], references: [id])
+  column        Column           @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  reporter      User             @relation("TaskReporter", fields: [reporterId], references: [id])
+  assignee      User?            @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  labels        TaskLabel[]
+  comments      Comment[]
+  attachments   Attachment[]
+  history       TaskHistory[]
+  activities    Activity[]
+  dependencies  TaskDependency[] @relation("DependentTasks")
+  blockingTasks TaskDependency[] @relation("BlockedTasks")
+  mentions      CommentMention[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([boardId, columnId, position])
+  @@map("tasks")
+}
+
+model Label {
+  id      String @id @default(cuid())
+  boardId String
+  name    String
+  color   String // Hex color #RRGGBB (preset palette recommended)
+
+  // Relations
+  board Board       @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks TaskLabel[]
+
+  @@unique([boardId, name])
+  @@map("labels")
+}
+
+model TaskLabel {
+  taskId  String
+  labelId String
+
+  // Relations
+  task  Task  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  label Label @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, labelId])
+  @@map("task_labels")
+}
+
+// ==================== TASK HISTORY & DEPENDENCIES ====================
+
+model TaskHistory {
+  id       String  @id @default(cuid())
+  taskId   String
+  userId   String
+  field    String // e.g., "title", "description", "assignee", "priority", "column"
+  oldValue String? // JSON string or plain text
+  newValue String?
+
+  // Relations
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("task_histories")
+}
+
+model TaskDependency {
+  id              String @id @default(cuid())
+  taskId          String // Task that depends on another
+  dependsOnTaskId String // Task that must be completed first
+
+  // Relations
+  task      Task @relation("DependentTasks", fields: [taskId], references: [id], onDelete: Cascade)
+  dependsOn Task @relation("BlockedTasks", fields: [dependsOnTaskId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([taskId, dependsOnTaskId])
+  @@map("task_dependencies")
+}
+
+// ==================== COMMENTS & MENTIONS ====================
+
+model Comment {
+  id       String    @id @default(cuid())
+  taskId   String
+  authorId String
+  content  String // Rich text (Markdown or HTML)
+  editedAt DateTime?
+
+  // Relations
+  task     Task             @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  author   User             @relation(fields: [authorId], references: [id])
+  mentions CommentMention[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([taskId])
+  @@map("comments")
+}
+
+model CommentMention {
+  commentId String
+  userId    String
+  taskId    String // ADDED: Fix #4
+
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task    Task    @relation(fields: [taskId], references: [id], onDelete: Cascade) // ADDED: Fix #4
+
+  @@id([commentId, userId])
+  @@map("comment_mentions")
+}
+
+// ==================== ATTACHMENTS ====================
+
+model Attachment {
+  id         String @id @default(cuid())
+  taskId     String
+  uploadedBy String
+  fileName   String
+  fileUrl    String // Cloudinary URL
+  fileSize   Int // In bytes
+  mimeType   String // e.g., "image/png", "application/pdf"
+  publicId   String // Cloudinary public_id for deletion
+
+  // Relations
+  task     Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  uploader User @relation(fields: [uploadedBy], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([taskId])
+  @@map("attachments")
+}
+
+// ==================== NOTIFICATIONS ====================
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean          @default(false)
+  actionUrl String? // Frontend route: /tasks/:taskId
+  metadata  Json? // Additional data: { taskId, projectId, etc }
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+// ==================== ACTIVITY LOGS ====================
+
+model Activity {
+  id          String     @id @default(cuid())
+  workspaceId String
+  userId      String
+  entityType  EntityType
+  entityId    String // ID of the entity (task, project, etc)
+  action      Action
+  details     Json? // Additional context: { oldColumn, newColumn, oldAssignee, etc }
+
+  // ADDED: Fix #2 & #3
+  projectId String?
+  taskId    String?
+
+  // Relations
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id])
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull) // ADDED: Fix #2
+  task      Task?     @relation(fields: [taskId], references: [id], onDelete: SetNull) // ADDED: Fix #3
+
+  createdAt DateTime @default(now())
+
+  @@index([workspaceId, createdAt])
+  @@map("activities")
+}
+
+// ==================== AUDIT LOGS (Enterprise Compliance) ====================
+
+model AuditLog {
+  id        String  @id @default(cuid())
+  userId    String?
+  action    String // e.g., "LOGIN", "LOGOUT", "PERMISSION_CHANGE", "EXPORT_DATA"
+  ipAddress String?
+  userAgent String?
+  details   Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@map("audit_logs")
+}

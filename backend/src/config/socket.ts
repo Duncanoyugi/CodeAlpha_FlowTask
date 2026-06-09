@@ -15,7 +15,7 @@ export interface SocketUser {
 
 export const connectedUsers = new Map<string, SocketUser>();
 
-export const initializeSocket = (server: HttpServer) => {
+export const initializeSocket = (server: HttpServer) => {``
   io = new SocketServer(server, {
     cors: {
       origin: env.FRONTEND_URL,

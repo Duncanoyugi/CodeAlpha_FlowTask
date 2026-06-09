@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authMiddleware = void 0;
+exports.socketAuthMiddleware = exports.authMiddleware = void 0;
 const jwt_1 = require("../utils/jwt");
 const error_1 = require("../utils/error");
 const authMiddleware = (req, _res, next) => {
@@ -22,3 +22,14 @@ const authMiddleware = (req, _res, next) => {
     }
 };
 exports.authMiddleware = authMiddleware;
+// Socket.io middleware version
+const socketAuthMiddleware = (token) => {
+    try {
+        const payload = (0, jwt_1.verifyAccessToken)(token);
+        return { userId: payload.userId, email: payload.email };
+    }
+    catch (error) {
+        return null;
+    }
+};
+exports.socketAuthMiddleware = socketAuthMiddleware;

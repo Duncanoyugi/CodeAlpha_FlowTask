@@ -34,3 +34,13 @@ export const authMiddleware = (
     next(new UnauthorizedError('Invalid or expired token'));
   }
 };
+
+// Socket.io middleware version
+export const socketAuthMiddleware = (token: string) => {
+  try {
+    const payload = verifyAccessToken(token);
+    return { userId: payload.userId, email: payload.email };
+  } catch (error) {
+    return null;
+  }
+};

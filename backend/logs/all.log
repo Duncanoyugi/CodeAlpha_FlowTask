@@ -16,3 +16,7 @@
 2026-06-09 01:48:38:4838 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
 2026-06-09 01:48:38:4838 [32minfo[39m: [32m📝 Environment: development[39m
 2026-06-09 01:48:38:4838 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-09 14:53:47:5347 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-09 14:53:47:5347 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-09 14:53:47:5347 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-09 14:53:47:5347 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m

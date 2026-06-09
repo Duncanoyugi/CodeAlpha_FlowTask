@@ -1,0 +1,173 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Create Workspace
+POST http://localhost:5000/api/v1/workspaces
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Task Test Workspace"
+}
+
+### 3. Create Project
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Task Test Project"
+}
+
+### 4. Create Board
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Task Board"
+}
+
+### 5. Create Columns (Backlog, To Do, In Progress, Done)
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Backlog"
+}
+
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "To Do"
+}
+
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "In Progress"
+}
+
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Done"
+}
+
+### 6. Create Task
+# @name createTask
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Implement authentication",
+  "description": "Add JWT auth with refresh tokens",
+  "priority": "HIGH",
+  "dueDate": "2024-12-31T23:59:59Z"
+}
+
+### 7. Create More Tasks
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Design database schema",
+  "priority": "URGENT"
+}
+
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Create API endpoints",
+  "priority": "MEDIUM"
+}
+
+### 8. Get All Tasks in Column
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 9. Get All Tasks in Board
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/board/YOUR_BOARD_ID/tasks
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 10. Get Task by ID
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 11. Update Task
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Implement JWT authentication",
+  "priority": "URGENT"
+}
+
+### 12. Move Task to Different Column
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/move
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "columnId": "TARGET_COLUMN_ID",
+  "position": 0
+}
+
+### 13. Get My Assigned Tasks
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/my-tasks
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 14. Reorder Tasks in Column
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/column/YOUR_COLUMN_ID/reorder
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "taskIds": ["TASK_ID_2", "TASK_ID_1", "TASK_ID_3"]
+}
+
+### 15. Delete Task (Archive)
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 16. Permanently Delete Task
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID?permanent=true
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+
+
+
+# 1. Restart the server
+npx ts-node src/server.ts
+
+# 2. Test in order using REST Client:
+# - Login (get token)
+# - Create workspace
+# - Create project
+# - Create board
+# - Create columns
+# - Create tasks
+# - Get tasks
+# - Update task
+# - Move task to another column
+# - Get my tasks
+# - Reorder tasks
+# - Delete task

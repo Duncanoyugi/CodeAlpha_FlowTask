@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const search_controller_1 = require("./search.controller");
+const auth_middleware_1 = require("../../../src/middleware/auth.middleware");
+const workspace_middleware_1 = require("../../../src/middleware/workspace.middleware");
+const router = (0, express_1.Router)({ mergeParams: true });
+const searchController = new search_controller_1.SearchController();
+router.use(auth_middleware_1.authMiddleware);
+router.use(workspace_middleware_1.workspaceAccessMiddleware);
+router.get('/global', searchController.globalSearch);
+router.get('/tasks', searchController.searchTasks);
+exports.default = router;

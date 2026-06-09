@@ -1,0 +1,20 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Global Search
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/search/global?q=authentication
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 3. Advanced Task Search
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/search/tasks?q=api&priority=HIGH
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 4. Search with Filters
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/search/tasks?assigneeId=USER_ID&dueDateFrom=2024-01-01&dueDateTo=2024-12-31
+Authorization: Bearer YOUR_ACCESS_TOKEN

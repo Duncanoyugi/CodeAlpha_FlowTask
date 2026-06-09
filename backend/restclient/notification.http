@@ -1,0 +1,33 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Get All Notifications
+GET http://localhost:5000/api/v1/notifications
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 3. Get Unread Count
+GET http://localhost:5000/api/v1/notifications/unread-count
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 4. Mark Single Notification as Read
+PATCH http://localhost:5000/api/v1/notifications/YOUR_NOTIFICATION_ID/read
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 5. Mark Multiple Notifications as Read
+POST http://localhost:5000/api/v1/notifications/mark-read
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "notificationIds": ["NOTIFICATION_ID_1", "NOTIFICATION_ID_2"]
+}
+
+### 6. Mark All Notifications as Read
+POST http://localhost:5000/api/v1/notifications/mark-all-read
+Authorization: Bearer YOUR_ACCESS_TOKEN

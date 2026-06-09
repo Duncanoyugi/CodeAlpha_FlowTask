@@ -1,0 +1,81 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Create Workspace
+POST http://localhost:5000/api/v1/workspaces
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Board Test Workspace"
+}
+
+### 3. Create Project
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Board Test Project"
+}
+
+### 4. Create Board
+# @name createBoard
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Sprint Board"
+}
+
+### 5. Get All Boards
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 6. Get Board by ID
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 7. Update Board
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Updated Sprint Board"
+}
+
+### 8. Delete Board (Archive)
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+
+
+
+
+
+
+
+
+# 1. Restart the server
+npx ts-node src/server.ts
+
+# 2. Test in order using REST Client:
+# - Login (get token)
+# - Create workspace
+# - Create project
+# - Create board
+# - Get boards
+# - Create columns
+# - Get columns
+# - Update column
+# - Reorder columns
+# - Delete column
+# - Delete board

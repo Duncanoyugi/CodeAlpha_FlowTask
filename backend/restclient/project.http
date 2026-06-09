@@ -1,0 +1,82 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Create Workspace (if not exists)
+# @name createWorkspace
+POST http://localhost:5000/api/v1/workspaces
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Project Test Workspace"
+}
+
+### Save workspaceId from response
+# @name workspaceId = {{createWorkspace.response.data.id}}
+
+### 3. Create Project
+# @name createProject
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Website Redesign",
+  "description": "Complete website redesign project",
+  "color": "#FF5733",
+  "startDate": "2024-01-01T00:00:00Z",
+  "endDate": "2024-03-31T00:00:00Z"
+}
+
+### Save projectId from response
+# @name projectId = {{createProject.response.data.id}}
+
+### 4. Get All Workspace Projects
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 5. Get Project by ID
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 6. Update Project
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Updated Project Name",
+  "description": "This description has been updated"
+}
+
+### 7. Get Project Members
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/members
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 8. Add Project Member (requires another user)
+# First create another user via register, then use their ID
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/members
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "userId": "OTHER_USER_ID_HERE"
+}
+
+### 9. Remove Project Member
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/members/MEMBER_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 10. Archive Project (Soft Delete)
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 11. Permanently Delete Project
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID?permanent=true
+Authorization: Bearer YOUR_ACCESS_TOKEN

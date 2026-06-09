@@ -1,0 +1,102 @@
+### 1. Login first to get token
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test123456"
+}
+
+### 2. Create Workspace (if needed)
+POST http://localhost:5000/api/v1/workspaces
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Comment Test Workspace"
+}
+
+### 3. Create Project
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Comment Test Project"
+}
+
+### 4. Create Board
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "Comment Board"
+}
+
+### 5. Create Column
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "name": "To Do"
+}
+
+### 6. Create Task
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "title": "Task with comments",
+  "description": "This task will have comments"
+}
+
+### 7. Create Comment on Task
+# @name createComment
+POST http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/comments
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "content": "This is my first comment. @testuser please review this."
+}
+
+### 8. Get All Comments for Task
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/comments
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 9. Get Comment by ID
+GET http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/comments/YOUR_COMMENT_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+### 10. Update Comment
+PATCH http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/comments/YOUR_COMMENT_ID
+Content-Type: application/json
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+{
+  "content": "This is an updated comment. @admin please check."
+}
+
+### 11. Delete Comment
+DELETE http://localhost:5000/api/v1/workspaces/YOUR_WORKSPACE_ID/projects/YOUR_PROJECT_ID/boards/YOUR_BOARD_ID/columns/YOUR_COLUMN_ID/tasks/YOUR_TASK_ID/comments/YOUR_COMMENT_ID
+Authorization: Bearer YOUR_ACCESS_TOKEN
+
+
+
+# 1. Restart the server
+npx ts-node src/server.ts
+
+# 2. Test in order using REST Client:
+# - Login (get token)
+# - Create workspace, project, board, column, task
+# - Create comment
+# - Get all comments
+# - Get comment by ID
+# - Update comment
+# - Delete comment
+# - Get workspace activities
+# - Get project activities
+# - Get task activities

@@ -1113,3 +1113,92 @@
 2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
 2026-06-12 15:11:50:1150 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
 2026-06-12 15:11:51:1151 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:47:15:4715 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-15 00:47:15:4715 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-15 00:47:15:4715 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-15 00:47:15:4715 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-15 00:48:15:4815 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-15 00:48:18:4818 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 00:48:18:4818 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-15 00:48:18:4818 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:18:4818 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 00:48:20:4820 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-15 00:48:21:4821 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:21:4821 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-15 00:48:21:4821 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:48:22:4822 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-15 00:48:22:4822 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:48:35:4835 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:36:4836 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:40:4840 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:40:4840 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:48:40:4840 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-15 00:48:41:4841 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:59:4859 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:48:59:4859 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:48:59:4859 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:00:490 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:00:490 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:01:491 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:01:491 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:02:492 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:03:493 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:05:495 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:13:4913 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:14:4914 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:16:4916 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:16:4916 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:16:4916 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:17:4917 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:17:4917 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:18:4918 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:19:4919 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:19:4919 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:20:4920 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:22:4922 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:44:4944 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:44:4944 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:50:4950 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:50:4950 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:50:4950 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:51:4951 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 00:49:52:4952 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:52:4952 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:52:4952 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:53:4953 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-15 00:49:54:4954 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 00:49:56:4956 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/projects/cmq9ybvi50003b9ns68u05hj6[39m
+2026-06-15 01:13:09:139 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-15 01:13:09:139 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-15 01:13:09:139 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-15 01:13:09:139 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-15 01:14:26:1426 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-15 01:14:27:1427 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 01:14:27:1427 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-15 01:14:27:1427 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:14:28:1428 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 01:14:30:1430 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-15 01:14:30:1430 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:14:55:1455 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:14:56:1456 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:14:59:1459 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:14:59:1459 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:01:151 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:01:151 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:25:1525 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:26:1526 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:27:1527 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:28:1528 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:29:1529 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:15:29:1529 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:21:02:212 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-15 01:21:02:212 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-15 01:21:02:212 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-15 01:21:02:212 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-15 01:22:22:2222 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-15 01:22:24:2224 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 01:22:24:2224 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-15 01:22:24:2224 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:22:24:2224 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-15 01:22:26:2226 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-15 01:22:26:2226 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m

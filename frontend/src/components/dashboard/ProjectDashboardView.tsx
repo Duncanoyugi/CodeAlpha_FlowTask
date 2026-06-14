@@ -139,32 +139,27 @@ const ProjectDashboardView = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Workspaces"
+          label="Workspaces"
           value={displayWorkspaces.length}
           icon={<Users className="h-5 w-5" />}
           trend={isDemoMode ? `${displayWorkspaces.length} active` : '+1 this month'}
-          trendUp
         />
         <StatCard
-          title="Active Projects"
+          label="Active Projects"
           value={displayProjects.length}
           icon={<FolderKanban className="h-5 w-5" />}
-          color="indigo"
         />
         <StatCard
-          title="Pending Tasks"
+          label="Pending Tasks"
           value={isDemoMode ? 16 : pendingTasks}
           icon={<CheckSquare className="h-5 w-5" />}
-          subtitle={`${isDemoMode ? 22 : completedTasks} completed`}
-          color="amber"
+          trend={`${isDemoMode ? 22 : completedTasks} completed`}
         />
         <StatCard
-          title="Notifications"
+          label="Notifications"
           value={displayUnread}
           icon={<BellDot className="h-5 w-5" />}
           trend={displayUnread > 0 ? `${displayUnread} unread` : 'All caught up'}
-          color="rose"
-          isLoading={false}
         />
       </div>
 

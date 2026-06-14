@@ -1,45 +1,58 @@
 import { cn } from '@utils/cn';
+import type { ReactNode } from 'react';
 
-interface StatCardProps {
-  title: string;
+export type StatCardTone = 'default' | 'dark' | 'accent';
+
+export type StatCardProps = {
+  label: string;
   value: number | string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   trend?: string;
-  trendUp?: boolean;
-  subtitle?: string;
-  color?: string;
+  trendDirection?: 'up' | 'down';
+  tone?: StatCardTone;
   isLoading?: boolean;
-}
+};
 
-const StatCard = ({ title, value, icon, trend, trendUp, subtitle, color = 'indigo', isLoading }: StatCardProps) => {
-  const colorClasses: Record<string, string> = {
-    indigo: 'bg-indigo-50 text-indigo-600',
-    sky: 'bg-sky-50 text-sky-600',
-    amber: 'bg-amber-50 text-amber-600',
-    rose: 'bg-rose-50 text-rose-600',
-    emerald: 'bg-emerald-50 text-emerald-600',
-    purple: 'bg-purple-50 text-purple-600',
-  };
+const StatCard = ({
+  label,
+  value,
+  icon,
+  trend,
+  trendDirection = 'up',
+  tone = 'default',
+  isLoading,
+}: StatCardProps) => {
+  const base =
+    tone === 'dark'
+      ? 'bg-slate-900 text-white'
+      : tone === 'accent'
+      ? 'bg-gradient-to-br from-sky-500 to-sky-600 text-white border border-transparent'
+      : 'bg-white text-slate-900 border border-slate-200';
+
+  const iconWrap =
+    tone === 'dark'
+      ? 'bg-white/10 text-white'
+      : tone === 'accent'
+      ? 'bg-white/10 text-white'
+      : 'bg-slate-100 text-slate-700';
+
+  const trendClass = trendDirection === 'up' ? 'text-emerald-600' : 'text-rose-600';
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex items-center gap-4">
-      <div className={cn('h-11 w-11 rounded-lg flex items-center justify-center', colorClasses[color] ?? colorClasses.indigo)}>
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{title}</p>
-        <p className="text-xl font-semibold text-gray-900 mt-0.5">
-          {isLoading ? '...' : value}
-        </p>
-        {trend && (
-          <p className={cn('text-xs mt-0.5', trendUp ? 'text-emerald-600' : 'text-gray-500')}>
+    <div className={cn('rounded-2xl p-4 flex items-center gap-4', base)}>
+      <div className={cn('h-11 w-11 rounded-xl flex items-center justify-center', iconWrap)}>{icon}</div>
+      <div className="min-w-0">
+        <div className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</div>
+        <div className="text-2xl font-semibold mt-0.5">{isLoading ? '...' : value}</div>
+        {trend ? (
+          <div className={cn('text-xs mt-1', tone === 'accent' || tone === 'dark' ? 'text-sky-100/80' : trendClass)}>
             {trend}
-          </p>
-        )}
-        {subtitle && <p className="text-xs text-gray-400 mt-0.5">{subtitle}</p>}
+          </div>
+        ) : null}
       </div>
     </div>
   );
 };
 
 export default StatCard;
+

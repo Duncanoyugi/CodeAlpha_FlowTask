@@ -32,8 +32,13 @@ class TaskPermissions {
         // Same as update permission for MVP
         return this.canUpdateTask(userRole, taskReporterId, taskAssigneeId, currentUserId);
     }
-    static canAssignTask(userRole) {
-        return userRole === prisma_1.Role.ADMIN || userRole === prisma_1.Role.MEMBER;
+    static canReorderTasks(userRole, tasks, currentUserId) {
+        if (userRole === prisma_1.Role.ADMIN)
+            return true;
+        if (userRole !== prisma_1.Role.MEMBER) {
+            return false;
+        }
+        return tasks.every((task) => task.reporterId === currentUserId || task.assigneeId === currentUserId);
     }
 }
 exports.TaskPermissions = TaskPermissions;

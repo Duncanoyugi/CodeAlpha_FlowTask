@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InviteMemberSchema = exports.UpdateMemberRoleSchema = exports.WorkspaceIdSchema = exports.UpdateWorkspaceSchema = exports.CreateWorkspaceSchema = void 0;
+exports.InviteMemberSchema = exports.UpdateMemberRoleSchema = exports.TransferOwnershipSchema = exports.WorkspaceIdSchema = exports.UpdateWorkspaceSchema = exports.CreateWorkspaceSchema = void 0;
 const zod_1 = require("zod");
 exports.CreateWorkspaceSchema = zod_1.z.object({
     body: zod_1.z.object({
@@ -22,6 +22,14 @@ exports.UpdateWorkspaceSchema = zod_1.z.object({
 exports.WorkspaceIdSchema = zod_1.z.object({
     params: zod_1.z.object({
         workspaceId: zod_1.z.string().cuid(),
+    }),
+});
+exports.TransferOwnershipSchema = zod_1.z.object({
+    params: zod_1.z.object({
+        workspaceId: zod_1.z.string().cuid(),
+    }),
+    body: zod_1.z.object({
+        newOwnerId: zod_1.z.string().cuid(),
     }),
 });
 exports.UpdateMemberRoleSchema = zod_1.z.object({

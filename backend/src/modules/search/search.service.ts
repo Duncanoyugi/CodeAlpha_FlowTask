@@ -1,7 +1,47 @@
 import { prisma } from '../../lib/prisma';
 import { Prisma } from '../../generated/prisma';
+import { ForbiddenError } from '../../utils/error';
+import { assertProjectAccess } from '../../permissions/project-access.permissions';
 
 export class SearchService {
+  private async getAccessibleProjectIds(workspaceId: string, userId: string): Promise<string[]> {
+    const member = await prisma.workspaceMember.findUnique({
+      where: {
+        workspaceId_userId: {
+          workspaceId,
+          userId,
+        },
+      },
+    });
+
+    if (!member) {
+      throw new ForbiddenError('You do not have access to this workspace');
+    }
+
+    const restrictedProjects = await prisma.projectMember.findMany({
+      where: { project: { workspaceId } },
+      select: { projectId: true },
+      distinct: ['projectId'],
+    });
+
+    const restrictedProjectIds = restrictedProjects.map((projectMember) => projectMember.projectId);
+    if (restrictedProjectIds.length === 0) {
+      return [];
+    }
+
+    const accessibleProjectIds: string[] = [];
+    for (const projectId of restrictedProjectIds) {
+      try {
+        await assertProjectAccess(projectId, userId);
+        accessibleProjectIds.push(projectId);
+      } catch {
+        // Project is restricted and user is not a project member.
+      }
+    }
+
+    return accessibleProjectIds;
+  }
+
   async searchGlobal(workspaceId: string, query: string, userId: string) {
     // Verify user has access to workspace
     const member = await prisma.workspaceMember.findUnique({
@@ -16,6 +56,8 @@ export class SearchService {
     if (!member) {
       throw new Error('Access denied');
     }
+
+    const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
     
     const searchTerm = `%${query}%`;
     
@@ -25,6 +67,7 @@ export class SearchService {
         board: {
           project: {
             workspaceId,
+            ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
           },
         },
         deletedAt: null,
@@ -64,6 +107,7 @@ export class SearchService {
       where: {
         workspaceId,
         deletedAt: null,
+        ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
         OR: [
           { name: { contains: query, mode: 'insensitive' } },
           { description: { contains: query, mode: 'insensitive' } },
@@ -87,6 +131,7 @@ export class SearchService {
           board: {
             project: {
               workspaceId,
+              ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
             },
           },
         },
@@ -164,11 +209,14 @@ export class SearchService {
     if (!member) {
       throw new Error('Access denied');
     }
+
+    const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
     
     const where: any = {
       board: {
         project: {
           workspaceId,
+          ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
         },
       },
       deletedAt: null,

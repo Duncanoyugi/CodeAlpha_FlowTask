@@ -11,6 +11,7 @@ const prisma_1 = require("../lib/prisma");
 const logger_1 = __importDefault(require("../lib/logger"));
 exports.connectedUsers = new Map();
 const initializeSocket = (server) => {
+    ``;
     exports.io = new socket_io_1.Server(server, {
         cors: {
             origin: env_1.env.FRONTEND_URL,

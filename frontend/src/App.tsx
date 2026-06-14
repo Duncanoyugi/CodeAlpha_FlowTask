@@ -1,18 +1,56 @@
-import './App.css'
+import { useEffect, useMemo } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { getCurrentUser } from '@store/slices/authSlice';
+import AppRoutes from '@routes/AppRoutes';
+import { Toaster } from 'react-hot-toast';
+import { setAccessTokenGetter } from '@lib/axios';
 
 function App() {
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, accessToken } = useAppSelector((state) => state.auth);
+
+  const getAccessToken = useMemo(() => () => accessToken, [accessToken]);
+
+  useEffect(() => {
+    setAccessTokenGetter(getAccessToken);
+  }, [getAccessToken]);
+
+  useEffect(() => {
+    if (accessToken && !isAuthenticated) {
+      dispatch(getCurrentUser());
+    }
+  }, [accessToken, isAuthenticated, dispatch]);
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-blue-600 mb-4">
-          Hello, Tailwind CSS!
-        </h1>
-        <p className="text-gray-700">
-          Your React + TypeScript + Vite + Tailwind setup is ready!
-        </p>
-      </div>
-    </div>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: '#22c55e',
+              secondary: '#fff',
+            },
+          },
+          error: {
+            duration: 4000,
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

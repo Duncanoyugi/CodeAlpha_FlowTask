@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isWorkspaceOwner = exports.hasHigherOrEqualRole = exports.RolePermissions = exports.RoleHierarchy = void 0;
+exports.canManageWorkspaceMembers = exports.canManageWorkspaceResources = exports.isWorkspaceOwner = exports.hasRolePermission = exports.getRolePermissions = exports.hasHigherOrEqualRole = exports.RolePermissions = exports.RoleHierarchy = void 0;
 const prisma_1 = require("../generated/prisma");
 exports.RoleHierarchy = {
     [prisma_1.Role.ADMIN]: 3,
@@ -9,44 +9,136 @@ exports.RoleHierarchy = {
 };
 exports.RolePermissions = {
     [prisma_1.Role.ADMIN]: {
-        canDeleteWorkspace: false, // Only owner can
-        canManageBilling: false, // Only owner can
+        canCreateWorkspace: true,
         canInviteMembers: true,
         canRemoveMembers: true,
         canChangeRoles: true,
         canCreateProject: true,
+        canEditProject: true,
         canDeleteProject: true,
         canCreateBoard: true,
+        canEditBoard: true,
         canDeleteBoard: true,
+        canCreateColumn: true,
+        canEditColumn: true,
+        canDeleteColumn: true,
+        canReorderColumns: true,
+        canCreateTask: true,
+        canEditAnyTask: true,
+        canDeleteAnyTask: true,
+        canMoveAnyTask: true,
         canManageAllTasks: true,
+        canManageOwnTasks: true,
+        canCompleteTask: true,
+        canAddLabels: true,
+        canAddAttachments: true,
+        canComment: true,
+        canEditOwnComment: true,
+        canDeleteOwnComment: true,
+        canViewProjects: true,
+        canViewBoards: true,
+        canViewTasks: true,
+        canViewComments: true,
+        canViewActivityLogs: true,
         canViewAnalytics: true,
+        canViewCharts: true,
+        canViewTeamMetrics: true,
+        canExportData: true,
+        canDeleteWorkspace: false,
+        canManageBilling: false,
     },
     [prisma_1.Role.MEMBER]: {
+        canCreateWorkspace: false,
         canInviteMembers: false,
         canRemoveMembers: false,
         canChangeRoles: false,
         canCreateProject: false,
+        canEditProject: false,
         canDeleteProject: false,
         canCreateBoard: false,
+        canEditBoard: false,
         canDeleteBoard: false,
+        canCreateColumn: false,
+        canEditColumn: false,
+        canDeleteColumn: false,
+        canReorderColumns: false,
+        canCreateTask: true,
+        canEditAnyTask: false,
+        canDeleteAnyTask: false,
+        canMoveAnyTask: false,
         canManageAllTasks: false,
         canManageOwnTasks: true,
+        canCompleteTask: true,
+        canAddLabels: true,
+        canAddAttachments: true,
         canComment: true,
-        canUploadAttachments: true,
+        canEditOwnComment: true,
+        canDeleteOwnComment: true,
+        canViewProjects: true,
+        canViewBoards: true,
+        canViewTasks: true,
+        canViewComments: true,
+        canViewActivityLogs: true,
         canViewAnalytics: false,
+        canViewCharts: false,
+        canViewTeamMetrics: false,
+        canExportData: false,
+        canDeleteWorkspace: false,
+        canManageBilling: false,
     },
     [prisma_1.Role.VIEWER]: {
-        canViewProjects: true,
-        canViewTasks: true,
+        canCreateWorkspace: false,
+        canInviteMembers: false,
+        canRemoveMembers: false,
+        canChangeRoles: false,
+        canCreateProject: false,
+        canEditProject: false,
+        canDeleteProject: false,
+        canCreateBoard: false,
+        canEditBoard: false,
+        canDeleteBoard: false,
+        canCreateColumn: false,
+        canEditColumn: false,
+        canDeleteColumn: false,
+        canReorderColumns: false,
+        canCreateTask: false,
+        canEditAnyTask: false,
+        canDeleteAnyTask: false,
+        canMoveAnyTask: false,
+        canManageAllTasks: false,
+        canManageOwnTasks: false,
+        canCompleteTask: false,
+        canAddLabels: false,
+        canAddAttachments: false,
         canComment: true,
-        canEditAnything: false,
+        canEditOwnComment: false,
+        canDeleteOwnComment: false,
+        canViewProjects: true,
+        canViewBoards: true,
+        canViewTasks: true,
+        canViewComments: true,
+        canViewActivityLogs: false,
+        canViewAnalytics: false,
+        canViewCharts: false,
+        canViewTeamMetrics: false,
+        canExportData: false,
+        canDeleteWorkspace: false,
+        canManageBilling: false,
     },
 };
 const hasHigherOrEqualRole = (userRole, requiredRole) => {
     return exports.RoleHierarchy[userRole] >= exports.RoleHierarchy[requiredRole];
 };
 exports.hasHigherOrEqualRole = hasHigherOrEqualRole;
+const getRolePermissions = (role) => exports.RolePermissions[role];
+exports.getRolePermissions = getRolePermissions;
+const hasRolePermission = (role, permission) => exports.RolePermissions[role][permission];
+exports.hasRolePermission = hasRolePermission;
 const isWorkspaceOwner = (userId, workspaceOwnerId) => {
     return userId === workspaceOwnerId;
 };
 exports.isWorkspaceOwner = isWorkspaceOwner;
+const canManageWorkspaceResources = (userRole, userId, workspaceOwnerId) => userRole === prisma_1.Role.ADMIN || (0, exports.isWorkspaceOwner)(userId, workspaceOwnerId);
+exports.canManageWorkspaceResources = canManageWorkspaceResources;
+const canManageWorkspaceMembers = (userRole) => userRole === prisma_1.Role.ADMIN;
+exports.canManageWorkspaceMembers = canManageWorkspaceMembers;

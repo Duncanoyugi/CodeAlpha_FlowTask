@@ -1,45 +1,34 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WorkspacePermissions = void 0;
-const prisma_1 = require("../../generated/prisma");
+const roles_1 = require("../../constants/roles");
 class WorkspacePermissions {
+    static canUpdateWorkspace(userRole, userId, ownerId) {
+        return (0, roles_1.canManageWorkspaceResources)(userRole, userId, ownerId);
+    }
     static canDeleteWorkspace(userId, ownerId) {
-        return userId === ownerId;
+        return (0, roles_1.isWorkspaceOwner)(userId, ownerId);
     }
-    static canManageMembers(userRole) {
-        return userRole === prisma_1.Role.ADMIN || userRole === prisma_1.Role.MEMBER;
+    static canManageBilling(userId, ownerId) {
+        return (0, roles_1.isWorkspaceOwner)(userId, ownerId);
     }
-    static canUpdateWorkspace(userRole) {
-        return userRole === prisma_1.Role.ADMIN || userRole === prisma_1.Role.MEMBER;
+    static canTransferOwnership(userId, ownerId) {
+        return (0, roles_1.isWorkspaceOwner)(userId, ownerId);
     }
     static canInviteMembers(userRole) {
-        return userRole === prisma_1.Role.ADMIN || userRole === prisma_1.Role.MEMBER;
+        return (0, roles_1.canManageWorkspaceMembers)(userRole);
     }
-    static canRemoveMember(currentUserRole, targetUserRole, currentUserId, targetUserId, ownerId) {
-        // Owner can remove anyone
-        if (currentUserId === ownerId)
-            return true;
-        // Cannot remove self
-        if (currentUserId === targetUserId)
-            return false;
-        // Admin can remove MEMBERS and VIEWERS, but not other ADMINS
-        if (currentUserRole === prisma_1.Role.ADMIN) {
-            return targetUserRole !== prisma_1.Role.ADMIN;
+    static canRemoveMember(currentRole, currentUserId, targetUserId, ownerId) {
+        if ((0, roles_1.isWorkspaceOwner)(currentUserId, ownerId)) {
+            return targetUserId !== ownerId;
         }
-        return false;
+        return (0, roles_1.canManageWorkspaceMembers)(currentRole) && targetUserId !== ownerId;
     }
-    static canChangeRole(currentUserRole, targetUserRole, currentUserId, targetUserId, ownerId) {
-        // Owner can change anyone's role
-        if (currentUserId === ownerId)
-            return true;
-        // Cannot change own role
-        if (currentUserId === targetUserId)
-            return false;
-        // Admin can change MEMBERS and VIEWERS to other roles except ADMIN
-        if (currentUserRole === prisma_1.Role.ADMIN) {
-            return targetUserRole !== prisma_1.Role.ADMIN;
+    static canChangeRole(currentRole, currentUserId, targetUserId, ownerId) {
+        if ((0, roles_1.isWorkspaceOwner)(currentUserId, ownerId)) {
+            return targetUserId !== ownerId;
         }
-        return false;
+        return (0, roles_1.canManageWorkspaceMembers)(currentRole) && targetUserId !== ownerId;
     }
 }
 exports.WorkspacePermissions = WorkspacePermissions;

@@ -25,6 +25,15 @@ export const WorkspaceIdSchema = z.object({
   }),
 });
 
+export const TransferOwnershipSchema = z.object({
+  params: z.object({
+    workspaceId: z.string().cuid(),
+  }),
+  body: z.object({
+    newOwnerId: z.string().cuid(),
+  }),
+});
+
 export const UpdateMemberRoleSchema = z.object({
   params: z.object({
     workspaceId: z.string().cuid(),

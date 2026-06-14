@@ -1,5 +1,7 @@
 export type Priority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
 
+export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'REVIEW' | 'DONE';
+
 export interface Task {
   id: string;
   boardId: string;
@@ -8,6 +10,7 @@ export interface Task {
   description: string | null;
   position: number;
   priority: Priority;
+  status: TaskStatus;
   dueDate: string | null;
   reporterId: string;
   assigneeId: string | null;

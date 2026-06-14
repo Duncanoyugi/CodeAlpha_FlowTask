@@ -16,7 +16,7 @@ export const limiter = rateLimit({
 // Stricter limiter for auth routes
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts
+  max: 10, // 10 attempts per IP
   skipSuccessfulRequests: true,
   handler: (_req, _res, next) => {
     next(new TooManyRequestsError('Too many login attempts, please try again after 15 minutes'));

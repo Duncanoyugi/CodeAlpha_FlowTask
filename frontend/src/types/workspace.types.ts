@@ -7,6 +7,7 @@ export interface Workspace {
   description: string | null;
   logo: string | null;
   ownerId: string;
+  role?: Role;
   createdAt: string;
   updatedAt: string;
 }
@@ -40,6 +41,7 @@ export interface UpdateWorkspaceData {
 export interface WorkspaceState {
   workspaces: Workspace[];
   currentWorkspace: Workspace | null;
+  currentRole: Role | null;
   members: WorkspaceMember[];
   isLoading: boolean;
   error: string | null;

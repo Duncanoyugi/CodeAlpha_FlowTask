@@ -4,6 +4,7 @@ import { NotFoundError, ForbiddenError, BadRequestError } from '../../../src/uti
 import { prisma } from '../../../src/lib/prisma';
 import { Role, Priority } from '../../generated/prisma';
 import { TaskPermissions } from './task.permissions';
+import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
 
 export class TaskService {
   private taskRepository: TaskRepository;
@@ -12,34 +13,17 @@ export class TaskService {
     this.taskRepository = new TaskRepository();
   }
 
-  private async checkBoardAccess(boardId: string, userId: string): Promise<Role> {
+  private async checkBoardAccess(boardId: string, userId: string): Promise<{ role: Role; ownerId: string }> {
     const board = await prisma.board.findUnique({
       where: { id: boardId },
-      include: {
-        project: {
-          include: {
-            workspace: {
-              include: {
-                members: {
-                  where: { userId },
-                },
-              },
-            },
-          },
-        },
-      },
+      select: { projectId: true },
     });
 
     if (!board) {
       throw new NotFoundError('Board');
     }
 
-    const member = board.project.workspace.members[0];
-    if (!member) {
-      throw new ForbiddenError('You do not have access to this board');
-    }
-
-    return member.role;
+    return assertProjectAccess(board.projectId, userId);
   }
 
   private async checkColumnExists(columnId: string): Promise<void> {
@@ -57,9 +41,9 @@ export class TaskService {
     userId: string,
     data: CreateTaskDto,
   ) {
-    const userRole = await this.checkBoardAccess(boardId, userId);
+    const workspaceAccess = await this.checkBoardAccess(boardId, userId);
     
-    if (!TaskPermissions.canCreateTask(userRole)) {
+    if (!TaskPermissions.canCreateTask(workspaceAccess.role)) {
       throw new ForbiddenError('You do not have permission to create tasks');
     }
 
@@ -116,10 +100,10 @@ export class TaskService {
       throw new NotFoundError('Task');
     }
 
-    const userRole = await this.checkBoardAccess(task.boardId, userId);
+    const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
     
     if (!TaskPermissions.canUpdateTask(
-      userRole,
+      workspaceAccess.role,
       task.reporterId,
       task.assigneeId,
       userId,
@@ -136,10 +120,10 @@ export class TaskService {
       throw new NotFoundError('Task');
     }
 
-    const userRole = await this.checkBoardAccess(task.boardId, userId);
+    const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
     
     if (!TaskPermissions.canMoveTask(
-      userRole,
+      workspaceAccess.role,
       task.reporterId,
       task.assigneeId,
       userId,
@@ -148,6 +132,13 @@ export class TaskService {
     }
 
     await this.checkColumnExists(data.columnId);
+    const targetColumn = await prisma.column.findUnique({
+      where: { id: data.columnId },
+      select: { boardId: true },
+    });
+    if (!targetColumn || targetColumn.boardId !== task.boardId) {
+      throw new ForbiddenError('Cannot move task to a column outside its board');
+    }
 
     // Reorder tasks in the new column
     const tasksInNewColumn = await this.taskRepository.findAllByColumn(data.columnId);
@@ -177,9 +168,9 @@ export class TaskService {
       throw new NotFoundError('Task');
     }
 
-    const userRole = await this.checkBoardAccess(task.boardId, userId);
+    const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
     
-    if (!TaskPermissions.canDeleteTask(userRole, task.reporterId, userId)) {
+    if (!TaskPermissions.canDeleteTask(workspaceAccess.role, task.reporterId, userId)) {
       throw new ForbiddenError('You do not have permission to delete this task');
     }
 
@@ -203,9 +194,10 @@ export class TaskService {
       throw new NotFoundError('Column');
     }
 
-    const userRole = await this.checkBoardAccess(column.boardId, userId);
+    const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
+    const tasks = await this.taskRepository.findAllByColumn(columnId);
     
-    if (userRole !== Role.ADMIN) {
+    if (!TaskPermissions.canReorderTasks(workspaceAccess.role, tasks, userId)) {
       throw new ForbiddenError('You do not have permission to reorder tasks');
     }
 

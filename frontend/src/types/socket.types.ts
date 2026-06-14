@@ -1,3 +1,7 @@
+import type { Task } from './task.types';
+import type { Comment } from './comment.types';
+import type { Notification } from './notification.types';
+
 export interface SocketEvents {
   // Client -> Server
   'join:workspace': (workspaceId: string) => void;

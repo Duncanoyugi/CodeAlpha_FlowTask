@@ -15,6 +15,11 @@ export class BoardRepository {
     return prisma.board.findUnique({
       where: { id },
       include: {
+        project: {
+          select: {
+            workspaceId: true,
+          },
+        },
         columns: {
           orderBy: { position: 'asc' },
           include: {
@@ -62,6 +67,11 @@ export class BoardRepository {
     return prisma.board.findMany({
       where: { projectId, deletedAt: null },
       include: {
+        project: {
+          select: {
+            workspaceId: true,
+          },
+        },
         columns: {
           orderBy: { position: 'asc' },
           include: {

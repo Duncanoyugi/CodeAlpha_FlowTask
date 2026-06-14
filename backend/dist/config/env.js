@@ -31,7 +31,7 @@ const envSchema = zod_1.z.object({
     FRONTEND_URL: zod_1.z.string().url().default('http://localhost:5173'),
     // Rate Limiting
     RATE_LIMIT_WINDOW_MS: zod_1.z.string().transform(Number).default(900000),
-    RATE_LIMIT_MAX_REQUESTS: zod_1.z.string().transform(Number).default(100),
+    RATE_LIMIT_MAX_REQUESTS: zod_1.z.string().transform(Number).default(1000),
 });
 const parsedEnv = envSchema.safeParse(process.env);
 if (!parsedEnv.success) {

@@ -12,6 +12,11 @@ class BoardRepository {
         return prisma_1.prisma.board.findUnique({
             where: { id },
             include: {
+                project: {
+                    select: {
+                        workspaceId: true,
+                    },
+                },
                 columns: {
                     orderBy: { position: 'asc' },
                     include: {
@@ -58,6 +63,11 @@ class BoardRepository {
         return prisma_1.prisma.board.findMany({
             where: { projectId, deletedAt: null },
             include: {
+                project: {
+                    select: {
+                        workspaceId: true,
+                    },
+                },
                 columns: {
                     orderBy: { position: 'asc' },
                     include: {

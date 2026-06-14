@@ -14,6 +14,7 @@ router.post('/', (0, validation_middleware_1.validate)(workspace_schema_1.Create
 router.get('/', workspaceController.getUserWorkspaces);
 router.get('/:workspaceId', (0, validation_middleware_1.validate)(workspace_schema_1.WorkspaceIdSchema), workspaceController.getWorkspace);
 router.patch('/:workspaceId', (0, validation_middleware_1.validate)(workspace_schema_1.UpdateWorkspaceSchema), workspaceController.updateWorkspace);
+router.patch('/:workspaceId/transfer-ownership', (0, validation_middleware_1.validate)(workspace_schema_1.TransferOwnershipSchema), workspaceController.transferOwnership);
 router.delete('/:workspaceId', (0, validation_middleware_1.validate)(workspace_schema_1.WorkspaceIdSchema), workspaceController.deleteWorkspace);
 // Member management
 router.get('/:workspaceId/members', (0, validation_middleware_1.validate)(workspace_schema_1.WorkspaceIdSchema), workspaceController.getWorkspaceMembers);

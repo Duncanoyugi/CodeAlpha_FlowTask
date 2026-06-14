@@ -1,6 +1,6 @@
 import { WorkspaceRepository } from './workspace.repository';
 import { CreateWorkspaceDto, UpdateWorkspaceDto } from './workspace.dto';
-import { ConflictError, NotFoundError, ForbiddenError } from '../../../src/utils/error';
+import { ConflictError, NotFoundError, ForbiddenError, BadRequestError } from '../../../src/utils/error';
 import { slugify } from '../../../src/utils/slugify';
 import { Role } from '../../generated/prisma';
 import { WorkspacePermissions } from './workspace.permissions';
@@ -71,7 +71,12 @@ export class WorkspaceService {
     userRole: Role,
     data: UpdateWorkspaceDto,
   ) {
-    if (!WorkspacePermissions.canUpdateWorkspace(userRole)) {
+    const workspace = await this.workspaceRepository.findById(workspaceId);
+    if (!workspace) {
+      throw new NotFoundError('Workspace');
+    }
+
+    if (!WorkspacePermissions.canUpdateWorkspace(userRole, userId, workspace.ownerId)) {
       throw new ForbiddenError('You do not have permission to update this workspace');
     }
     
@@ -86,11 +91,37 @@ export class WorkspaceService {
   async deleteWorkspace(workspaceId: string, userId: string) {
     const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
     
-    if (!WorkspacePermissions.canDeleteWorkspace(userId, ownerId!)) {
+    if (!ownerId || !WorkspacePermissions.canDeleteWorkspace(userId, ownerId)) {
       throw new ForbiddenError('Only the workspace owner can delete the workspace');
     }
     
     await this.workspaceRepository.delete(workspaceId);
+  }
+
+  async transferOwnership(workspaceId: string, userId: string, newOwnerId: string) {
+    const workspace = await this.workspaceRepository.findById(workspaceId);
+    if (!workspace) {
+      throw new NotFoundError('Workspace');
+    }
+
+    if (!WorkspacePermissions.canTransferOwnership(userId, workspace.ownerId)) {
+      throw new ForbiddenError('Only the workspace owner can transfer ownership');
+    }
+
+    if (newOwnerId === workspace.ownerId) {
+      throw new BadRequestError('Workspace ownership is already assigned to this user');
+    }
+
+    const targetMember = await this.workspaceRepository.findMember(workspaceId, newOwnerId);
+    if (!targetMember) {
+      throw new NotFoundError('Member');
+    }
+
+    await this.workspaceRepository.update(workspaceId, { ownerId: newOwnerId });
+    await this.workspaceRepository.updateMemberRole(workspaceId, workspace.ownerId, Role.ADMIN);
+    await this.workspaceRepository.updateMemberRole(workspaceId, newOwnerId, Role.ADMIN);
+
+    return this.workspaceRepository.findById(workspaceId);
   }
 
   async addMember(workspaceId: string, userId: string, userRole: Role, targetEmail: string, role: Role) {
@@ -117,16 +148,15 @@ export class WorkspaceService {
     const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
     const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
     
-    if (!currentMember || !targetMember) {
+    if (!currentMember || !targetMember || !ownerId) {
       throw new NotFoundError('Member');
     }
     
     if (!WorkspacePermissions.canRemoveMember(
       currentMember.role,
-      targetMember.role,
       currentUserId,
       targetUserId,
-      ownerId!,
+      ownerId,
     )) {
       throw new ForbiddenError('You do not have permission to remove this member');
     }
@@ -144,16 +174,15 @@ export class WorkspaceService {
     const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
     const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
     
-    if (!currentMember || !targetMember) {
+    if (!currentMember || !targetMember || !ownerId) {
       throw new NotFoundError('Member');
     }
     
     if (!WorkspacePermissions.canChangeRole(
       currentMember.role,
-      targetMember.role,
       currentUserId,
       targetUserId,
-      ownerId!,
+      ownerId,
     )) {
       throw new ForbiddenError('You do not have permission to change this member\'s role');
     }

@@ -1,61 +1,50 @@
 import { Role } from '../../generated/prisma';
+import { canManageWorkspaceMembers, canManageWorkspaceResources, isWorkspaceOwner } from '../../constants/roles';
 
 export class WorkspacePermissions {
+  static canUpdateWorkspace(userRole: Role, userId: string, ownerId: string): boolean {
+    return canManageWorkspaceResources(userRole, userId, ownerId);
+  }
+
   static canDeleteWorkspace(userId: string, ownerId: string): boolean {
-    return userId === ownerId;
+    return isWorkspaceOwner(userId, ownerId);
   }
 
-  static canManageMembers(userRole: Role): boolean {
-    return userRole === Role.ADMIN || userRole === Role.MEMBER;
+  static canManageBilling(userId: string, ownerId: string): boolean {
+    return isWorkspaceOwner(userId, ownerId);
   }
 
-  static canUpdateWorkspace(userRole: Role): boolean {
-    return userRole === Role.ADMIN || userRole === Role.MEMBER;
+  static canTransferOwnership(userId: string, ownerId: string): boolean {
+    return isWorkspaceOwner(userId, ownerId);
   }
 
   static canInviteMembers(userRole: Role): boolean {
-    return userRole === Role.ADMIN || userRole === Role.MEMBER;
+    return canManageWorkspaceMembers(userRole);
   }
 
   static canRemoveMember(
-    currentUserRole: Role,
-    targetUserRole: Role,
+    currentRole: Role,
     currentUserId: string,
     targetUserId: string,
     ownerId: string,
   ): boolean {
-    // Owner can remove anyone
-    if (currentUserId === ownerId) return true;
-    
-    // Cannot remove self
-    if (currentUserId === targetUserId) return false;
-    
-    // Admin can remove MEMBERS and VIEWERS, but not other ADMINS
-    if (currentUserRole === Role.ADMIN) {
-      return targetUserRole !== Role.ADMIN;
+    if (isWorkspaceOwner(currentUserId, ownerId)) {
+      return targetUserId !== ownerId;
     }
-    
-    return false;
+
+    return canManageWorkspaceMembers(currentRole) && targetUserId !== ownerId;
   }
 
   static canChangeRole(
-    currentUserRole: Role,
-    targetUserRole: Role,
+    currentRole: Role,
     currentUserId: string,
     targetUserId: string,
     ownerId: string,
   ): boolean {
-    // Owner can change anyone's role
-    if (currentUserId === ownerId) return true;
-    
-    // Cannot change own role
-    if (currentUserId === targetUserId) return false;
-    
-    // Admin can change MEMBERS and VIEWERS to other roles except ADMIN
-    if (currentUserRole === Role.ADMIN) {
-      return targetUserRole !== Role.ADMIN;
+    if (isWorkspaceOwner(currentUserId, ownerId)) {
+      return targetUserId !== ownerId;
     }
-    
-    return false;
+
+    return canManageWorkspaceMembers(currentRole) && targetUserId !== ownerId;
   }
 }

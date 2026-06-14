@@ -4,7 +4,8 @@ exports.ColumnService = void 0;
 const column_repository_1 = require("./column.repository");
 const error_1 = require("../../../src/utils/error");
 const prisma_1 = require("../../../src/lib/prisma");
-const prisma_2 = require("../../generated/prisma");
+const column_permissions_1 = require("../../../src/permissions/column.permissions");
+const project_access_permissions_1 = require("../../../src/permissions/project-access.permissions");
 class ColumnService {
     columnRepository;
     constructor() {
@@ -13,33 +14,16 @@ class ColumnService {
     async checkBoardAccess(boardId, userId) {
         const board = await prisma_1.prisma.board.findUnique({
             where: { id: boardId },
-            include: {
-                project: {
-                    include: {
-                        workspace: {
-                            include: {
-                                members: {
-                                    where: { userId },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
+            select: { projectId: true },
         });
         if (!board) {
             throw new error_1.NotFoundError('Board');
         }
-        const member = board.project.workspace.members[0];
-        if (!member) {
-            throw new error_1.ForbiddenError('You do not have access to this board');
-        }
-        return member.role;
+        return (0, project_access_permissions_1.assertProjectAccess)(board.projectId, userId);
     }
     async createColumn(boardId, userId, data) {
-        const userRole = await this.checkBoardAccess(boardId, userId);
-        // Only ADMIN and MEMBER can create columns (but typically ADMIN only)
-        if (userRole !== prisma_2.Role.ADMIN) {
+        const workspaceAccess = await this.checkBoardAccess(boardId, userId);
+        if (!column_permissions_1.ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to create columns');
         }
         const position = data.position || await this.columnRepository.getMaxPosition(boardId);
@@ -66,8 +50,8 @@ class ColumnService {
         if (!column) {
             throw new error_1.NotFoundError('Column');
         }
-        const userRole = await this.checkBoardAccess(column.boardId, userId);
-        if (userRole !== prisma_2.Role.ADMIN) {
+        const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
+        if (!column_permissions_1.ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to update this column');
         }
         return this.columnRepository.update(columnId, data);
@@ -77,15 +61,15 @@ class ColumnService {
         if (!column) {
             throw new error_1.NotFoundError('Column');
         }
-        const userRole = await this.checkBoardAccess(column.boardId, userId);
-        if (userRole !== prisma_2.Role.ADMIN) {
+        const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
+        if (!column_permissions_1.ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to delete this column');
         }
         await this.columnRepository.delete(columnId);
     }
     async reorderColumns(boardId, userId, data) {
-        const userRole = await this.checkBoardAccess(boardId, userId);
-        if (userRole !== prisma_2.Role.ADMIN) {
+        const workspaceAccess = await this.checkBoardAccess(boardId, userId);
+        if (!column_permissions_1.ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to reorder columns');
         }
         await this.columnRepository.reorderColumns(data.columnIds);

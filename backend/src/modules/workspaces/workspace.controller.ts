@@ -81,6 +81,23 @@ export class WorkspaceController {
     }
   }
 
+  async transferOwnership(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = (req as any).user?.userId;
+      const workspaceId = req.params.workspaceId as string;
+      const { newOwnerId } = req.body;
+      const result = await workspaceService.transferOwnership(workspaceId, userId, newOwnerId);
+      
+      res.status(HttpStatus.OK).json({
+        success: true,
+        message: 'Workspace ownership transferred successfully',
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getWorkspaceMembers(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const userId = (req as any).user?.userId;

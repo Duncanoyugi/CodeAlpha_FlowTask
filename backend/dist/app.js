@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = require("./middleware/cors");
 const rate_limiter_1 = require("./middleware/rate-limiter");
 const error_middleware_1 = require("./middleware/error.middleware");
@@ -11,6 +12,7 @@ const logger_1 = __importDefault(require("./lib/logger"));
 const v1_1 = __importDefault(require("./routes/v1"));
 const app = (0, express_1.default)();
 // Middleware
+app.use((0, cookie_parser_1.default)());
 app.use(cors_1.corsMiddleware);
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));

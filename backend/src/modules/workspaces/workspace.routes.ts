@@ -5,6 +5,7 @@ import {
   CreateWorkspaceSchema,
   UpdateWorkspaceSchema,
   WorkspaceIdSchema,
+  TransferOwnershipSchema,
   UpdateMemberRoleSchema,
 } from './workspace.schema';
 import { authMiddleware } from '../../../src/middleware/auth.middleware';
@@ -21,6 +22,7 @@ router.post('/', validate(CreateWorkspaceSchema), workspaceController.createWork
 router.get('/', workspaceController.getUserWorkspaces);
 router.get('/:workspaceId', validate(WorkspaceIdSchema), workspaceController.getWorkspace);
 router.patch('/:workspaceId', validate(UpdateWorkspaceSchema), workspaceController.updateWorkspace);
+router.patch('/:workspaceId/transfer-ownership', validate(TransferOwnershipSchema), workspaceController.transferOwnership);
 router.delete('/:workspaceId', validate(WorkspaceIdSchema), workspaceController.deleteWorkspace);
 
 // Member management

@@ -3,6 +3,8 @@ import { CreateBoardDto, UpdateBoardDto } from './board.dto';
 import { NotFoundError, ForbiddenError } from '../../../src/utils/error';
 import { prisma } from '../../../src/lib/prisma';
 import { Role } from '../../generated/prisma';
+import { BoardPermissions } from '../../../src/permissions/board.permissions';
+import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
 
 export class BoardService {
   private boardRepository: BoardRepository;
@@ -11,34 +13,15 @@ export class BoardService {
     this.boardRepository = new BoardRepository();
   }
 
-  private async checkProjectAccess(projectId: string, userId: string): Promise<Role> {
-    const project = await prisma.project.findUnique({
-      where: { id: projectId },
-      include: {
-        workspace: {
-          include: {
-            members: {
-              where: { userId },
-            },
-          },
-        },
-      },
-    });
-
-    if (!project) {
-      throw new NotFoundError('Project');
-    }
-
-    const member = project.workspace.members[0];
-    if (!member) {
-      throw new ForbiddenError('You do not have access to this project');
-    }
-
-    return member.role;
+  private async checkProjectAccess(projectId: string, userId: string): Promise<{ role: Role; ownerId: string }> {
+    return assertProjectAccess(projectId, userId);
   }
 
   async createBoard(projectId: string, userId: string, data: CreateBoardDto) {
-    await this.checkProjectAccess(projectId, userId);
+    const workspaceAccess = await this.checkProjectAccess(projectId, userId);
+    if (!BoardPermissions.canManageBoard(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
+      throw new ForbiddenError('You do not have permission to create boards');
+    }
     
     return this.boardRepository.create({
       projectId,
@@ -54,12 +37,13 @@ export class BoardService {
 
     await this.checkProjectAccess(board.projectId, userId);
     
-    return board;
+    return { ...board, workspaceId: (board as any).project.workspaceId };
   }
 
   async getProjectBoards(projectId: string, userId: string) {
     await this.checkProjectAccess(projectId, userId);
-    return this.boardRepository.findAllByProject(projectId);
+    const boards = await this.boardRepository.findAllByProject(projectId);
+    return boards.map((board) => ({ ...board, workspaceId: (board as any).project.workspaceId }));
   }
 
   async updateBoard(boardId: string, userId: string, data: UpdateBoardDto) {
@@ -68,10 +52,9 @@ export class BoardService {
       throw new NotFoundError('Board');
     }
 
-    const userRole = await this.checkProjectAccess(board.projectId, userId);
+    const workspaceAccess = await this.checkProjectAccess(board.projectId, userId);
     
-    // Only ADMIN can update boards
-    if (userRole !== Role.ADMIN) {
+    if (!BoardPermissions.canManageBoard(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to update this board');
     }
 
@@ -84,10 +67,9 @@ export class BoardService {
       throw new NotFoundError('Board');
     }
 
-    const userRole = await this.checkProjectAccess(board.projectId, userId);
+    const workspaceAccess = await this.checkProjectAccess(board.projectId, userId);
     
-    // Only ADMIN can delete boards
-    if (userRole !== Role.ADMIN) {
+    if (!BoardPermissions.canManageBoard(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to delete this board');
     }
 

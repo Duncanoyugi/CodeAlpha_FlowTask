@@ -28,3 +28,1088 @@
 2026-06-09 23:30:57:3057 [32minfo[39m: [32m📝 Environment: development[39m
 2026-06-09 23:30:57:3057 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
 2026-06-09 23:30:57:3057 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 00:06:49:649 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 00:06:49:649 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 00:06:49:649 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 00:06:49:649 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 13:34:16:3416 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 13:34:16:3416 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 13:34:16:3416 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 13:34:16:3416 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 13:34:59:3459 [35mhttp[39m: [35mGET /health[39m
+2026-06-11 13:41:07:417 [35mhttp[39m: [35mPOST /api/v1/auth/register[39m
+2026-06-11 13:41:11:4111 [31merror[39m: [31mCannot set headers after they are sent to the client[39m
+2026-06-11 13:41:11:4111 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:41:11:4111 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:41:11:4111 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:41:12:4112 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:41:12:4112 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:41:12:4112 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:41:13:4113 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:41:13:4113 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:41:13:4113 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:41:13:4113 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:41:13:4113 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:41:14:4114 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:43:58:4358 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:43:58:4358 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:43:58:4358 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:43:59:4359 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:06:446 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:06:446 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:06:446 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:07:447 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:30:4430 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:30:4430 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:30:4430 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:31:4431 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:32:4432 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:32:4432 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:44:32:4432 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:44:33:4433 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 13:44:33:4433 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 13:44:33:4433 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 13:44:33:4433 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 13:44:33:4433 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findMany()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\workspaces\workspace.repository.ts:41:54[39m
+
+[31m  38 }[39m
+[31m  39 [39m
+[31m  40 async findAllByUser(userId: string): Promise<Workspace[]> {[39m
+[31m→ 41   const memberships = await prisma.workspaceMember.findMany([39m
+[31mThe column `workspace_members.createdAt` does not exist in the current database.[39m
+2026-06-11 14:19:33:1933 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 14:19:33:1933 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 14:19:33:1933 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 14:19:33:1933 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 14:23:36:2336 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 14:23:36:2336 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 14:23:36:2336 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 14:23:36:2336 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 14:24:16:2416 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 14:24:16:2416 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 14:24:16:2416 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 14:24:16:2416 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 14:25:35:2535 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 14:25:35:2535 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 14:25:35:2535 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 14:25:35:2535 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 14:28:07:287 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-11 14:28:09:289 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:28:09:289 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:28:09:289 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:28:10:2810 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:28:10:2810 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:28:10:2810 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:28:12:2812 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:28:12:2812 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:28:12:2812 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:28:12:2812 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:43:23:4323 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-11 14:43:27:4327 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:43:27:4327 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:43:27:4327 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:43:27:4327 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:43:28:4328 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:43:28:4328 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:43:29:4329 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:43:29:4329 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:43:29:4329 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:43:30:4330 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:55:57:5557 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-11 14:56:01:561 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:56:01:561 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:56:01:561 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:01:561 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:56:02:562 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:56:02:562 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:56:03:563 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:56:03:563 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:03:563 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:56:03:563 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:56:20:5620 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:21:5621 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:24:5624 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:25:5625 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:27:5627 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:56:27:5627 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:27:5727 [35mhttp[39m: [35mPOST /api/v1/workspaces[39m
+2026-06-11 14:57:47:5747 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:47:5747 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:57:47:5747 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:57:47:5747 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 14:57:48:5748 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 14:57:48:5748 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 14:57:48:5748 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:49:5749 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 14:57:50:5750 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 14:57:50:5750 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 14:57:51:5751 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:52:5752 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:59:5759 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:57:59:5759 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 14:57:59:5759 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 14:58:00:580 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 20:42:08:428 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 20:42:08:428 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 20:42:08:428 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 20:42:08:428 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 22:07:59:759 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-11 22:08:06:86 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 22:08:06:86 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 22:08:06:86 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:08:07:87 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 22:08:07:87 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 22:08:07:87 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 22:08:11:811 [31merror[39m: [31m[39m
+[31mInvalid `prisma.notification.count()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\notifications\notification.repository.ts:33:32[39m
+
+[31m  30 }[39m
+[31m  31 [39m
+[31m  32 async getUnreadCount(userId: string): Promise<number> {[39m
+[31m→ 33   return prisma.notification.count([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-11 22:08:11:811 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 22:08:12:812 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 22:08:12:812 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:08:12:812 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 22:08:14:814 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 22:08:17:817 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 22:12:09:129 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:12:11:1211 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:12:22:1222 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:12:22:1222 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 22:12:23:1223 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 22:12:24:1224 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:22:04:224 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:22:04:224 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:22:04:224 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:22:04:224 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:24:50:2450 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-11 23:24:51:2451 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:24:51:2451 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:24:51:2451 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:24:52:2452 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:24:52:2452 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:24:52:2452 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:24:53:2453 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:24:53:2453 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:24:54:2454 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:24:54:2454 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:24:54:2454 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:24:54:2454 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:24:55:2455 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:24:57:2457 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:24:58:2458 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:24:59:2459 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:10:2510 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:10:2510 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:10:2510 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:10:2510 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:10:2510 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:11:2511 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:11:2511 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:11:2511 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:12:2512 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:12:2512 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:12:2512 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:12:2512 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:13:2513 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:13:2513 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:13:2513 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:14:2514 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:17:2517 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:18:2518 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:18:2518 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:18:2518 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:18:2518 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:19:2519 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:19:2519 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:19:2519 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:25:19:2519 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:20:2520 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:20:2520 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:25:20:2520 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:21:2521 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:21:2521 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:44:2544 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:44:2544 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:44:2544 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:44:2544 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:44:2544 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:45:2545 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:25:46:2546 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:25:46:2546 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:27:34:2734 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:27:34:2734 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:27:34:2734 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:27:34:2734 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:27:34:2734 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:27:35:2735 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-11 23:27:36:2736 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:27:36:2736 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-11 23:27:36:2736 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:27:57:2757 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:27:57:2757 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:28:01:281 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:28:01:281 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:28:01:281 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:28:01:281 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:28:01:281 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:28:02:282 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:28:02:282 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:28:07:287 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:28:07:287 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:28:07:287 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:28:07:287 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:28:08:288 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:28:08:288 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:28:09:289 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-11 23:30:03:303 [35mhttp[39m: [35mPOST /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-11 23:30:32:3032 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-11 23:30:33:3033 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:30:39:3039 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-11 23:44:33:4433 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:44:33:4433 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:44:33:4433 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:44:33:4433 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:44:40:4440 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:44:40:4440 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:44:40:4440 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:44:40:4440 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:44:53:4453 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:44:53:4453 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:44:53:4453 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:44:53:4453 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:00:450 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:00:450 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:00:450 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:00:450 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:11:4511 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:11:4511 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:11:4511 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:11:4511 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:19:4519 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:19:4519 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:19:4519 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:19:4519 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:26:4526 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:26:4526 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:26:4526 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:26:4526 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:35:4535 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:35:4535 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:35:4535 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:35:4535 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:43:4543 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:43:4543 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:43:4543 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:43:4543 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:51:4551 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:51:4551 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:51:4551 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:51:4551 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:45:58:4558 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:45:58:4558 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:45:58:4558 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:45:58:4558 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:46:05:465 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:46:05:465 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:46:05:465 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:46:05:465 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:46:30:4630 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:46:30:4630 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:46:30:4630 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:46:30:4630 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:46:53:4653 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:46:53:4653 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:46:53:4653 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:46:53:4653 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:46:57:4657 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:46:57:4657 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:46:57:4657 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:46:57:4657 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:03:473 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:03:473 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:03:473 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:03:473 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:12:4712 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:12:4712 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:12:4712 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:12:4712 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:17:4717 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:17:4717 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:17:4717 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:17:4717 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:27:4727 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:27:4727 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:27:4727 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:27:4727 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:33:4733 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:33:4733 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:33:4733 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:33:4733 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:45:4745 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:45:4745 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:45:4745 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:45:4745 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:47:56:4756 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:47:56:4756 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:47:56:4756 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:47:56:4756 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:48:14:4814 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:48:14:4814 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:48:14:4814 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:48:14:4814 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:48:43:4843 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:48:43:4843 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:48:43:4843 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:48:43:4843 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:48:52:4852 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:48:52:4852 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:48:52:4852 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:48:52:4852 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:49:34:4934 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:49:34:4934 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:49:34:4934 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:49:34:4934 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:49:40:4940 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:49:40:4940 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:49:40:4940 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:49:40:4940 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:49:46:4946 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:49:46:4946 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:49:46:4946 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:49:46:4946 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:49:52:4952 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:49:52:4952 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:49:52:4952 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:49:52:4952 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:50:37:5037 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:50:37:5037 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:50:37:5037 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:50:37:5037 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-11 23:55:57:5557 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-11 23:55:57:5557 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-11 23:55:57:5557 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-11 23:55:57:5557 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:05:33:533 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:05:33:533 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:05:33:533 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:05:33:533 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:07:10:710 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 00:07:11:711 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:11:711 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:11:711 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:12:712 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:13:713 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:13:713 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:16:716 [31merror[39m: [31m[39m
+[31mInvalid `prisma.notification.count()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\notifications\notification.repository.ts:33:32[39m
+
+[31m  30 }[39m
+[31m  31 [39m
+[31m  32 async getUnreadCount(userId: string): Promise<number> {[39m
+[31m→ 33   return prisma.notification.count([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-12 00:07:16:716 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:17:717 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:17:717 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:17:717 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:17:717 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:17:717 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-12 00:07:19:719 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-12 00:07:20:720 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:22:722 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:23:723 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:26:726 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:26:726 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-12 00:07:26:726 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:26:726 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:31:731 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:32:732 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:34:734 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:34:734 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-12 00:07:34:734 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:35:735 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 00:07:40:740 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 00:07:41:741 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:07:41:741 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:07:41:741 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 00:07:41:741 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:07:41:741 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:42:742 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 00:07:45:745 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:07:47:747 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 00:23:35:2335 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:23:35:2335 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:23:35:2335 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:23:35:2335 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:25:05:255 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid email or password[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:06:256 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:06:256 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:25:07:257 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-12 00:26:01:261 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-12 00:26:12:2612 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-12 00:27:31:2731 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:27:31:2731 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:27:31:2731 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:27:31:2731 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:27:41:2741 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid email or password[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:42:2742 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:42:2742 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:43:2743 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:43:2743 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [35mhttp[39m: [35mPOST /api/v1/api/v1/auth/refresh-token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
+2026-06-12 00:27:44:2744 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-12 00:27:49:2749 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:27:49:2749 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:27:49:2749 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:27:49:2749 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:27:56:2756 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:27:56:2756 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:27:56:2756 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:27:56:2756 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:28:11:2811 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:28:11:2811 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:28:11:2811 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:28:11:2811 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:30:03:303 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 00:30:03:303 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 00:30:03:303 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 00:30:03:303 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 00:31:02:312 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 00:31:04:314 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:31:04:314 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:31:04:314 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:04:314 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 00:31:06:316 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 00:31:06:316 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:27:3127 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:28:3128 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:30:3130 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:30:3130 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:33:3133 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:34:3134 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:35:3135 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:35:3135 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:37:3137 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:38:3138 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:40:3140 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:41:3141 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:42:3142 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:42:3142 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:44:3144 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:31:44:3144 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:32:00:320 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 00:32:00:320 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:49:00:490 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 13:49:00:490 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 13:49:00:490 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 13:49:00:490 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 13:52:24:5224 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 13:52:26:5226 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:52:26:5226 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:52:26:5226 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:28:5228 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:52:30:5230 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:30:5230 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:52:37:5237 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:37:5237 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:40:5240 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:40:5240 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:50:5250 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:51:5251 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:53:5253 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:54:5254 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:56:5256 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:52:56:5256 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:48:5448 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 13:54:49:5449 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:54:49:5449 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:54:49:5449 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:50:5450 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:54:50:5450 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:54:52:5452 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:52:5452 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:54:52:5452 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-12 13:54:53:5453 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities[39m
+2026-06-12 13:54:54:5454 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:54:55:5455 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:56:5456 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:58:5458 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:54:58:5458 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:54:58:5458 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/projects[39m
+2026-06-12 13:54:59:5459 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:55:06:556 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:55:07:557 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:55:07:557 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:55:08:558 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:55:09:559 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:56:56:5656 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:56:57:5657 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 13:56:57:5657 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 13:56:57:5657 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:56:57:5657 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 13:56:57:5657 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:56:58:5658 [35mhttp[39m: [35mGET /api/v1/projects/cmq9ybvi50003b9ns68u05hj6/activities[39m
+2026-06-12 13:56:58:5658 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 13:56:59:5659 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 14:44:51:4451 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-12 14:44:51:4451 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-12 14:44:51:4451 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-12 14:44:51:4451 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-12 14:58:39:5839 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 14:58:42:5842 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 14:58:42:5842 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 14:58:42:5842 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 14:58:43:5843 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 14:58:44:5844 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 14:58:45:5845 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 14:58:45:5845 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 14:58:45:5845 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-12 14:58:46:5846 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-12 14:58:46:5846 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 15:01:40:140 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:01:41:141 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:03:23 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:03:23 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:05:25 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:05:25 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:09:29 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:02:09:29 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:07:33:733 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 15:07:36:736 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:07:36:736 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:07:36:736 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:07:37:737 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:07:38:738 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:07:38:738 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:11:47:1147 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-12 15:11:48:1148 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:11:48:1148 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:11:48:1148 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m
+2026-06-12 15:11:49:1149 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-12 15:11:50:1150 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/activities/workspace[39m
+2026-06-12 15:11:51:1151 [35mhttp[39m: [35mGET /api/v1/workspaces/cmq9g0lqq0007b9p4bwdefuvu/members[39m

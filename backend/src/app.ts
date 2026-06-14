@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { corsMiddleware } from './middleware/cors';
 import { limiter } from './middleware/rate-limiter';
 import { errorHandler } from './middleware/error.middleware';
@@ -8,6 +10,7 @@ import v1Routes from './routes/v1';
 const app = express();
 
 // Middleware
+app.use(cookieParser());
 app.use(corsMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

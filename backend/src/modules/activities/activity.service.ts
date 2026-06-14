@@ -1,7 +1,8 @@
 import { ActivityRepository } from './activity.repository';
 import { prisma } from '../../../src/lib/prisma';
-import { EntityType, Action } from '../../generated/prisma';
-import { ForbiddenError } from '../../../src/utils/error';
+import { EntityType, Action, Role } from '../../generated/prisma';
+import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
+import { ForbiddenError, NotFoundError } from '../../../src/utils/error';
 
 export class ActivityService {
   private activityRepository: ActivityRepository;
@@ -212,56 +213,46 @@ export class ActivityService {
       throw new ForbiddenError('You do not have access to this workspace');
     }
 
+    if (member.role === Role.VIEWER) {
+      throw new ForbiddenError('You do not have permission to view activity logs');
+    }
+
     return this.activityRepository.findAllByWorkspace(workspaceId);
   }
 
   async getTaskActivities(taskId: string, userId: string) {
-    // Verify access through task
     const task = await prisma.task.findUnique({
       where: { id: taskId },
-      include: {
-        board: {
-          include: {
-            project: {
-              include: {
-                workspace: {
-                  include: {
-                    members: {
-                      where: { userId },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
+      select: { boardId: true },
     });
 
-    if (!task || !task.board.project.workspace.members[0]) {
-      throw new ForbiddenError('You do not have access to this task');
+    if (!task) {
+      throw new NotFoundError('Task');
+    }
+
+    const board = await prisma.board.findUnique({
+      where: { id: task.boardId },
+      select: { projectId: true },
+    });
+
+    if (!board) {
+      throw new NotFoundError('Board');
+    }
+
+    const workspaceAccess = await assertProjectAccess(board.projectId, userId);
+
+    if (workspaceAccess.role === Role.VIEWER) {
+      throw new ForbiddenError('You do not have permission to view activity logs');
     }
 
     return this.activityRepository.findAllByTask(taskId);
   }
 
   async getProjectActivities(projectId: string, userId: string) {
-    // Verify access through project
-    const project = await prisma.project.findUnique({
-      where: { id: projectId },
-      include: {
-        workspace: {
-          include: {
-            members: {
-              where: { userId },
-            },
-          },
-        },
-      },
-    });
+    const workspaceAccess = await assertProjectAccess(projectId, userId);
 
-    if (!project || !project.workspace.members[0]) {
-      throw new ForbiddenError('You do not have access to this project');
+    if (workspaceAccess.role === Role.VIEWER) {
+      throw new ForbiddenError('You do not have permission to view activity logs');
     }
 
     return this.activityRepository.findAllByProject(projectId);

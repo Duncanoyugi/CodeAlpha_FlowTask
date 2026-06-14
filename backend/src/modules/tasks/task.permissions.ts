@@ -46,7 +46,17 @@ export class TaskPermissions {
     return this.canUpdateTask(userRole, taskReporterId, taskAssigneeId, currentUserId);
   }
 
-  static canAssignTask(userRole: Role): boolean {
-    return userRole === Role.ADMIN || userRole === Role.MEMBER;
+  static canReorderTasks(
+    userRole: Role,
+    tasks: Array<{ reporterId: string; assigneeId: string | null }>,
+    currentUserId: string,
+  ): boolean {
+    if (userRole === Role.ADMIN) return true;
+
+    if (userRole !== Role.MEMBER) {
+      return false;
+    }
+
+    return tasks.every((task) => task.reporterId === currentUserId || task.assigneeId === currentUserId);
   }
 }

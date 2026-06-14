@@ -54,7 +54,11 @@ class WorkspaceService {
         return this.workspaceRepository.findAllByUser(userId);
     }
     async updateWorkspace(workspaceId, userId, userRole, data) {
-        if (!workspace_permissions_1.WorkspacePermissions.canUpdateWorkspace(userRole)) {
+        const workspace = await this.workspaceRepository.findById(workspaceId);
+        if (!workspace) {
+            throw new error_1.NotFoundError('Workspace');
+        }
+        if (!workspace_permissions_1.WorkspacePermissions.canUpdateWorkspace(userRole, userId, workspace.ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to update this workspace');
         }
         const updateData = { ...data };
@@ -65,10 +69,30 @@ class WorkspaceService {
     }
     async deleteWorkspace(workspaceId, userId) {
         const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
-        if (!workspace_permissions_1.WorkspacePermissions.canDeleteWorkspace(userId, ownerId)) {
+        if (!ownerId || !workspace_permissions_1.WorkspacePermissions.canDeleteWorkspace(userId, ownerId)) {
             throw new error_1.ForbiddenError('Only the workspace owner can delete the workspace');
         }
         await this.workspaceRepository.delete(workspaceId);
+    }
+    async transferOwnership(workspaceId, userId, newOwnerId) {
+        const workspace = await this.workspaceRepository.findById(workspaceId);
+        if (!workspace) {
+            throw new error_1.NotFoundError('Workspace');
+        }
+        if (!workspace_permissions_1.WorkspacePermissions.canTransferOwnership(userId, workspace.ownerId)) {
+            throw new error_1.ForbiddenError('Only the workspace owner can transfer ownership');
+        }
+        if (newOwnerId === workspace.ownerId) {
+            throw new error_1.BadRequestError('Workspace ownership is already assigned to this user');
+        }
+        const targetMember = await this.workspaceRepository.findMember(workspaceId, newOwnerId);
+        if (!targetMember) {
+            throw new error_1.NotFoundError('Member');
+        }
+        await this.workspaceRepository.update(workspaceId, { ownerId: newOwnerId });
+        await this.workspaceRepository.updateMemberRole(workspaceId, workspace.ownerId, prisma_1.Role.ADMIN);
+        await this.workspaceRepository.updateMemberRole(workspaceId, newOwnerId, prisma_1.Role.ADMIN);
+        return this.workspaceRepository.findById(workspaceId);
     }
     async addMember(workspaceId, userId, userRole, targetEmail, role) {
         if (!workspace_permissions_1.WorkspacePermissions.canInviteMembers(userRole)) {
@@ -90,10 +114,10 @@ class WorkspaceService {
         const currentMember = await this.workspaceRepository.findMember(workspaceId, currentUserId);
         const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
         const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
-        if (!currentMember || !targetMember) {
+        if (!currentMember || !targetMember || !ownerId) {
             throw new error_1.NotFoundError('Member');
         }
-        if (!workspace_permissions_1.WorkspacePermissions.canRemoveMember(currentMember.role, targetMember.role, currentUserId, targetUserId, ownerId)) {
+        if (!workspace_permissions_1.WorkspacePermissions.canRemoveMember(currentMember.role, currentUserId, targetUserId, ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to remove this member');
         }
         await this.workspaceRepository.removeMember(workspaceId, targetUserId);
@@ -102,10 +126,10 @@ class WorkspaceService {
         const currentMember = await this.workspaceRepository.findMember(workspaceId, currentUserId);
         const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
         const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
-        if (!currentMember || !targetMember) {
+        if (!currentMember || !targetMember || !ownerId) {
             throw new error_1.NotFoundError('Member');
         }
-        if (!workspace_permissions_1.WorkspacePermissions.canChangeRole(currentMember.role, targetMember.role, currentUserId, targetUserId, ownerId)) {
+        if (!workspace_permissions_1.WorkspacePermissions.canChangeRole(currentMember.role, currentUserId, targetUserId, ownerId)) {
             throw new error_1.ForbiddenError('You do not have permission to change this member\'s role');
         }
         return this.workspaceRepository.updateMemberRole(workspaceId, targetUserId, newRole);

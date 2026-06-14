@@ -5,6 +5,7 @@ const comment_repository_1 = require("./comment.repository");
 const error_1 = require("../../../src/utils/error");
 const prisma_1 = require("../../../src/lib/prisma");
 const prisma_2 = require("../../generated/prisma");
+const project_access_permissions_1 = require("../../../src/permissions/project-access.permissions");
 class CommentService {
     commentRepository;
     constructor() {
@@ -13,32 +14,19 @@ class CommentService {
     async checkTaskAccess(taskId, userId) {
         const task = await prisma_1.prisma.task.findUnique({
             where: { id: taskId },
-            include: {
-                board: {
-                    include: {
-                        project: {
-                            include: {
-                                workspace: {
-                                    include: {
-                                        members: {
-                                            where: { userId },
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
+            select: { boardId: true },
         });
         if (!task) {
             throw new error_1.NotFoundError('Task');
         }
-        const member = task.board.project.workspace.members[0];
-        if (!member) {
-            throw new error_1.ForbiddenError('You do not have access to this task');
+        const board = await prisma_1.prisma.board.findUnique({
+            where: { id: task.boardId },
+            select: { projectId: true },
+        });
+        if (!board) {
+            throw new error_1.NotFoundError('Board');
         }
-        return member.role;
+        return (0, project_access_permissions_1.assertProjectAccess)(board.projectId, userId);
     }
     extractMentions(content) {
         const mentionRegex = /@(\w+)/g;
@@ -68,7 +56,7 @@ class CommentService {
         return users.map(m => m.user.id);
     }
     async createComment(taskId, userId, data) {
-        const userRole = await this.checkTaskAccess(taskId, userId);
+        const workspaceAccess = await this.checkTaskAccess(taskId, userId);
         // All roles including VIEWER can comment
         const comment = await this.commentRepository.create({
             taskId,
@@ -134,9 +122,9 @@ class CommentService {
         if (!comment) {
             throw new error_1.NotFoundError('Comment');
         }
-        // Only comment author can update
-        if (comment.authorId !== userId) {
-            throw new error_1.ForbiddenError('You can only edit your own comments');
+        const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
+        if (comment.authorId !== userId && workspaceAccess.role !== prisma_2.Role.ADMIN) {
+            throw new error_1.ForbiddenError('You do not have permission to edit this comment');
         }
         const updatedComment = await this.commentRepository.update(commentId, data.content);
         // Update mentions - delete old and create new
@@ -168,9 +156,9 @@ class CommentService {
         if (!comment) {
             throw new error_1.NotFoundError('Comment');
         }
-        const userRole = await this.checkTaskAccess(comment.taskId, userId);
+        const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
         // Author or ADMIN can delete
-        if (comment.authorId !== userId && userRole !== prisma_2.Role.ADMIN) {
+        if (comment.authorId !== userId && workspaceAccess.role !== prisma_2.Role.ADMIN) {
             throw new error_1.ForbiddenError('You do not have permission to delete this comment');
         }
         await this.commentRepository.deleteMentions(commentId);

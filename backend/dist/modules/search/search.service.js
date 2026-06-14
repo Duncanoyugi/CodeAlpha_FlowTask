@@ -2,7 +2,42 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchService = void 0;
 const prisma_1 = require("../../lib/prisma");
+const error_1 = require("../../utils/error");
+const project_access_permissions_1 = require("../../permissions/project-access.permissions");
 class SearchService {
+    async getAccessibleProjectIds(workspaceId, userId) {
+        const member = await prisma_1.prisma.workspaceMember.findUnique({
+            where: {
+                workspaceId_userId: {
+                    workspaceId,
+                    userId,
+                },
+            },
+        });
+        if (!member) {
+            throw new error_1.ForbiddenError('You do not have access to this workspace');
+        }
+        const restrictedProjects = await prisma_1.prisma.projectMember.findMany({
+            where: { project: { workspaceId } },
+            select: { projectId: true },
+            distinct: ['projectId'],
+        });
+        const restrictedProjectIds = restrictedProjects.map((projectMember) => projectMember.projectId);
+        if (restrictedProjectIds.length === 0) {
+            return [];
+        }
+        const accessibleProjectIds = [];
+        for (const projectId of restrictedProjectIds) {
+            try {
+                await (0, project_access_permissions_1.assertProjectAccess)(projectId, userId);
+                accessibleProjectIds.push(projectId);
+            }
+            catch {
+                // Project is restricted and user is not a project member.
+            }
+        }
+        return accessibleProjectIds;
+    }
     async searchGlobal(workspaceId, query, userId) {
         // Verify user has access to workspace
         const member = await prisma_1.prisma.workspaceMember.findUnique({
@@ -16,6 +51,7 @@ class SearchService {
         if (!member) {
             throw new Error('Access denied');
         }
+        const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
         const searchTerm = `%${query}%`;
         // Search tasks
         const tasks = await prisma_1.prisma.task.findMany({
@@ -23,6 +59,7 @@ class SearchService {
                 board: {
                     project: {
                         workspaceId,
+                        ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
                     },
                 },
                 deletedAt: null,
@@ -61,6 +98,7 @@ class SearchService {
             where: {
                 workspaceId,
                 deletedAt: null,
+                ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
                 OR: [
                     { name: { contains: query, mode: 'insensitive' } },
                     { description: { contains: query, mode: 'insensitive' } },
@@ -83,6 +121,7 @@ class SearchService {
                     board: {
                         project: {
                             workspaceId,
+                            ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
                         },
                     },
                 },
@@ -149,10 +188,12 @@ class SearchService {
         if (!member) {
             throw new Error('Access denied');
         }
+        const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
         const where = {
             board: {
                 project: {
                     workspaceId,
+                    ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
                 },
             },
             deletedAt: null,

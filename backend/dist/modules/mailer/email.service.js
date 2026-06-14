@@ -13,7 +13,7 @@ if (env_1.env.NODE_ENV === 'production') {
     transporter = nodemailer_1.default.createTransport({
         host: env_1.env.SMTP_HOST,
         port: env_1.env.SMTP_PORT,
-        secure: env_1.env.SMTP_PORT === 465,
+        secure: env_1.env.SMTP_PORT === 587,
         auth: {
             user: env_1.env.SMTP_USER,
             pass: env_1.env.SMTP_PASS,

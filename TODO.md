@@ -1,34 +1,25 @@
-# TaskFlow Auth UI Redesign - TODO
+# TODO.md
 
-## Blocked / Dependencies
-- [ ] Confirm how VerifyOTP should resend verification:
-  - Need backend/API method for `resendVerification` (authService currently only has login/register/forgotPassword/resetPassword/verifyEmail).
-  - Need source of email when link has no email parameter.
+## Phase 0 (forensic audit)
+- [ ] (Cancelled/blocked) Produce full audit report with route table, UI entry-point table, role-resolution hop trace, OWNER reconciliation, bug reproduction, and IDOR spot check.
 
-## Implementation (presentation only)
-- [ ] Add shared design system typography + palette usage across auth pages (no shadcn default button styling, use slate/sky only).
-- [ ] LoginPage redesign
-  - [ ] Two-column layout with left slate-900 panel + tilted mini-kanban preview + quote attribution.
-  - [ ] Right card with heading/subcopy + RHF form presentation.
-  - [ ] Password show/hide toggle (lucide Eye/EyeOff).
-  - [ ] Button loading text + Loader2.
-- [ ] RegisterPage redesign
-  - [ ] Two-column layout; left panel matches LoginPage.
-  - [ ] Replace inline validation rendering with rose/rose-600 errors under fields (presentation only).
-  - [ ] Add password strength meter + 1..8+ checklist with icons.
-  - [ ] Consent line + footer links.
-- [ ] ForgottenPasswordPage (forgot password utility flow) redesign
-  - [ ] Single-column centered shell.
-  - [ ] Success state with emerald styling.
-  - [ ] Add 30s resend countdown + resend UX.
-- [ ] VerifyOTP redesign
-  - [ ] Single card shell.
-  - [ ] Three states (verifying/success/invalid) with lucide icons.
-  - [ ] Success countdown pill + continue button.
-  - [ ] Invalid state: primary resend button + secondary back to sign in.
-  - [ ] Add resend email input inline form if no email in URL.
+## Phase 2 (implementation options)
+- [x] Option B approved for implementation.
 
-## After code changes
-- [ ] Run frontend typecheck/build (vite/tsc) to ensure no TS errors.
-- [ ] Sanity check routes: /login, /register, /forgot-password, /verify-email(VerifyOTP), any verify-token query params.
+## Phase 3 (implementation)
+- [ ] Repair/rollback any unsafe intermediate authorization logic in `backend/src/modules/workspaces/workspace.service.ts`.
+- [ ] Add a real repository helper in `backend/src/modules/workspaces/workspace.repository.ts` to fetch the caller’s workspace membership role(s).
+- [ ] Implement backend authorization for `POST /workspaces` using DB-backed membership role(s), consistent with effective-role mapping.
+- [ ] Ensure mutating endpoints consistently enforce effective role server-side.
+- [ ] Update frontend guards for all creation entry points (defense-in-depth) and consume backend-returned effective role.
+- [ ] Resolve OWNER handling end-to-end (remove dead branches or make consistent).
+
+## Phase 4 (tests)
+- [ ] Backend unit/integration tests for each mutating endpoint per role.
+- [ ] Regression test reproducing MEMBER/VIEWER creating workspace/project now fails correctly.
+
+## Phase 5 (prod-readiness)
+- [ ] Single-source permission map documented.
+- [ ] Verify no auth decision trusts client-supplied role.
+- [ ] Add audit logging for authorization denials.
 

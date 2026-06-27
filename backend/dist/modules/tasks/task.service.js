@@ -6,21 +6,30 @@ const error_1 = require("../../../src/utils/error");
 const prisma_1 = require("../../../src/lib/prisma");
 const prisma_2 = require("../../generated/prisma");
 const task_permissions_1 = require("./task.permissions");
-const project_access_permissions_1 = require("../../../src/permissions/project-access.permissions");
+const access_resolver_1 = require("../../../src/permissions/access-resolver");
+const boardMoveLocks = new Map();
+async function withBoardMoveLock(boardId, fn) {
+    const prev = boardMoveLocks.get(boardId) ?? Promise.resolve();
+    let release;
+    const current = new Promise((resolve) => {
+        release = resolve;
+    });
+    boardMoveLocks.set(boardId, prev.finally(() => current));
+    try {
+        await prev;
+        return await fn();
+    }
+    finally {
+        release();
+        if (boardMoveLocks.get(boardId) === prev.finally(() => current)) {
+            boardMoveLocks.delete(boardId);
+        }
+    }
+}
 class TaskService {
     taskRepository;
     constructor() {
         this.taskRepository = new task_repository_1.TaskRepository();
-    }
-    async checkBoardAccess(boardId, userId) {
-        const board = await prisma_1.prisma.board.findUnique({
-            where: { id: boardId },
-            select: { projectId: true },
-        });
-        if (!board) {
-            throw new error_1.NotFoundError('Board');
-        }
-        return (0, project_access_permissions_1.assertProjectAccess)(board.projectId, userId);
     }
     async checkColumnExists(columnId) {
         const column = await prisma_1.prisma.column.findUnique({
@@ -31,8 +40,8 @@ class TaskService {
         }
     }
     async createTask(boardId, columnId, userId, data) {
-        const workspaceAccess = await this.checkBoardAccess(boardId, userId);
-        if (!task_permissions_1.TaskPermissions.canCreateTask(workspaceAccess.role)) {
+        const workspaceAccess = await (0, access_resolver_1.resolveBoardAccess)(boardId, userId);
+        if (!task_permissions_1.TaskPermissions.canCreateTask(workspaceAccess.permissionRole)) {
             throw new error_1.ForbiddenError('You do not have permission to create tasks');
         }
         await this.checkColumnExists(columnId);
@@ -54,7 +63,7 @@ class TaskService {
         if (!task) {
             throw new error_1.NotFoundError('Task');
         }
-        await this.checkBoardAccess(task.boardId, userId);
+        await (0, access_resolver_1.resolveBoardAccess)(task.boardId, userId);
         return task;
     }
     async getColumnTasks(columnId, userId) {
@@ -65,31 +74,23 @@ class TaskService {
         if (!column) {
             throw new error_1.NotFoundError('Column');
         }
-        await this.checkBoardAccess(column.boardId, userId);
+        await (0, access_resolver_1.resolveBoardAccess)(column.boardId, userId);
         return this.taskRepository.findAllByColumn(columnId);
     }
     async getBoardTasks(boardId, userId) {
-        await this.checkBoardAccess(boardId, userId);
+        await (0, access_resolver_1.resolveBoardAccess)(boardId, userId);
         return this.taskRepository.findAllByBoard(boardId);
     }
     async updateTask(taskId, userId, data) {
-        const task = await this.taskRepository.findById(taskId);
-        if (!task) {
-            throw new error_1.NotFoundError('Task');
-        }
-        const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
-        if (!task_permissions_1.TaskPermissions.canUpdateTask(workspaceAccess.role, task.reporterId, task.assigneeId, userId)) {
+        const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, userId);
+        if (!task_permissions_1.TaskPermissions.canUpdateTask(access.permissionRole, access.reporterId, access.assigneeId, userId)) {
             throw new error_1.ForbiddenError('You do not have permission to update this task');
         }
         return this.taskRepository.update(taskId, data);
     }
     async moveTask(taskId, userId, data) {
-        const task = await this.taskRepository.findById(taskId);
-        if (!task) {
-            throw new error_1.NotFoundError('Task');
-        }
-        const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
-        if (!task_permissions_1.TaskPermissions.canMoveTask(workspaceAccess.role, task.reporterId, task.assigneeId, userId)) {
+        const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, userId);
+        if (!task_permissions_1.TaskPermissions.canMoveTask(access.permissionRole, access.reporterId, access.assigneeId, userId)) {
             throw new error_1.ForbiddenError('You do not have permission to move this task');
         }
         await this.checkColumnExists(data.columnId);
@@ -97,32 +98,49 @@ class TaskService {
             where: { id: data.columnId },
             select: { boardId: true },
         });
-        if (!targetColumn || targetColumn.boardId !== task.boardId) {
+        if (!targetColumn || targetColumn.boardId !== access.boardId) {
             throw new error_1.ForbiddenError('Cannot move task to a column outside its board');
         }
-        // Reorder tasks in the new column
-        const tasksInNewColumn = await this.taskRepository.findAllByColumn(data.columnId);
-        // Insert at the specified position
-        let newPosition = data.position;
-        if (newPosition >= tasksInNewColumn.length) {
-            newPosition = tasksInNewColumn.length * 100 + 100;
-        }
-        else {
-            // Shift tasks after insertion point
-            for (let i = newPosition; i < tasksInNewColumn.length; i++) {
-                await this.taskRepository.updatePosition(tasksInNewColumn[i].id, tasksInNewColumn[i].columnId, (i + 2) * 100);
-            }
-            newPosition = (newPosition + 1) * 100;
-        }
-        return this.taskRepository.updatePosition(taskId, data.columnId, newPosition);
+        return withBoardMoveLock(access.boardId, async () => {
+            return prisma_1.prisma.$transaction(async (tx) => {
+                const tasksInNewColumn = await tx.task.findMany({
+                    where: { columnId: data.columnId, deletedAt: null },
+                    select: { id: true },
+                    orderBy: { position: 'asc' },
+                });
+                let newPosition = data.position;
+                if (newPosition >= tasksInNewColumn.length) {
+                    newPosition = tasksInNewColumn.length * 100 + 100;
+                }
+                else {
+                    const toShift = tasksInNewColumn.slice(newPosition);
+                    await Promise.all(toShift.map((t, idx) => tx.task.update({
+                        where: { id: t.id },
+                        data: {
+                            columnId: data.columnId,
+                            position: (newPosition + idx + 2) * 100,
+                        },
+                    })));
+                    newPosition = (newPosition + 1) * 100;
+                }
+                return tx.task.update({
+                    where: { id: taskId },
+                    data: { columnId: data.columnId, position: newPosition },
+                    include: {
+                        reporter: {
+                            select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
+                        },
+                        assignee: {
+                            select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
+                        },
+                    },
+                });
+            });
+        });
     }
     async deleteTask(taskId, userId, permanent = false) {
-        const task = await this.taskRepository.findById(taskId);
-        if (!task) {
-            throw new error_1.NotFoundError('Task');
-        }
-        const workspaceAccess = await this.checkBoardAccess(task.boardId, userId);
-        if (!task_permissions_1.TaskPermissions.canDeleteTask(workspaceAccess.role, task.reporterId, userId)) {
+        const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, userId);
+        if (!task_permissions_1.TaskPermissions.canDeleteTask(access.permissionRole, access.reporterId, userId)) {
             throw new error_1.ForbiddenError('You do not have permission to delete this task');
         }
         if (permanent) {
@@ -143,12 +161,17 @@ class TaskService {
         if (!column) {
             throw new error_1.NotFoundError('Column');
         }
-        const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
+        const workspaceAccess = await (0, access_resolver_1.resolveBoardAccess)(column.boardId, userId);
         const tasks = await this.taskRepository.findAllByColumn(columnId);
-        if (!task_permissions_1.TaskPermissions.canReorderTasks(workspaceAccess.role, tasks, userId)) {
+        if (!task_permissions_1.TaskPermissions.canReorderTasks(workspaceAccess.permissionRole, tasks, userId)) {
             throw new error_1.ForbiddenError('You do not have permission to reorder tasks');
         }
-        await this.taskRepository.reorderTasks(columnId, taskIds);
+        await prisma_1.prisma.$transaction(async (tx) => {
+            await Promise.all(taskIds.map((taskId, idx) => tx.task.update({
+                where: { id: taskId },
+                data: { position: (idx + 1) * 100 },
+            })));
+        });
     }
 }
 exports.TaskService = TaskService;

@@ -2,64 +2,18 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchService = void 0;
 const prisma_1 = require("../../lib/prisma");
-const error_1 = require("../../utils/error");
-const project_access_permissions_1 = require("../../permissions/project-access.permissions");
+const access_resolver_1 = require("../../permissions/access-resolver");
 class SearchService {
-    async getAccessibleProjectIds(workspaceId, userId) {
-        const member = await prisma_1.prisma.workspaceMember.findUnique({
-            where: {
-                workspaceId_userId: {
-                    workspaceId,
-                    userId,
-                },
-            },
-        });
-        if (!member) {
-            throw new error_1.ForbiddenError('You do not have access to this workspace');
-        }
-        const restrictedProjects = await prisma_1.prisma.projectMember.findMany({
-            where: { project: { workspaceId } },
-            select: { projectId: true },
-            distinct: ['projectId'],
-        });
-        const restrictedProjectIds = restrictedProjects.map((projectMember) => projectMember.projectId);
-        if (restrictedProjectIds.length === 0) {
-            return [];
-        }
-        const accessibleProjectIds = [];
-        for (const projectId of restrictedProjectIds) {
-            try {
-                await (0, project_access_permissions_1.assertProjectAccess)(projectId, userId);
-                accessibleProjectIds.push(projectId);
-            }
-            catch {
-                // Project is restricted and user is not a project member.
-            }
-        }
-        return accessibleProjectIds;
-    }
     async searchGlobal(workspaceId, query, userId) {
-        // Verify user has access to workspace
-        const member = await prisma_1.prisma.workspaceMember.findUnique({
-            where: {
-                workspaceId_userId: {
-                    workspaceId,
-                    userId,
-                },
-            },
-        });
-        if (!member) {
-            throw new Error('Access denied');
-        }
-        const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
-        const searchTerm = `%${query}%`;
-        // Search tasks
+        await (0, access_resolver_1.resolveWorkspaceAccess)(workspaceId, userId);
+        const accessibleProjectIds = await (0, access_resolver_1.resolveAccessibleProjectIds)(workspaceId, userId);
+        const projectFilter = accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : { id: { in: [] } };
         const tasks = await prisma_1.prisma.task.findMany({
             where: {
                 board: {
                     project: {
                         workspaceId,
-                        ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
+                        ...projectFilter,
                     },
                 },
                 deletedAt: null,
@@ -93,12 +47,11 @@ class SearchService {
             },
             take: 20,
         });
-        // Search projects
         const projects = await prisma_1.prisma.project.findMany({
             where: {
                 workspaceId,
                 deletedAt: null,
-                ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
+                ...projectFilter,
                 OR: [
                     { name: { contains: query, mode: 'insensitive' } },
                     { description: { contains: query, mode: 'insensitive' } },
@@ -114,14 +67,13 @@ class SearchService {
             },
             take: 10,
         });
-        // Search comments
         const comments = await prisma_1.prisma.comment.findMany({
             where: {
                 task: {
                     board: {
                         project: {
                             workspaceId,
-                            ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
+                            ...projectFilter,
                         },
                     },
                 },
@@ -146,7 +98,6 @@ class SearchService {
             },
             take: 10,
         });
-        // Search users in workspace
         const users = await prisma_1.prisma.workspaceMember.findMany({
             where: {
                 workspaceId,
@@ -173,27 +124,18 @@ class SearchService {
             tasks,
             projects,
             comments,
-            users: users.map(m => m.user),
+            users: users.map((m) => m.user),
         };
     }
     async searchTasks(workspaceId, filters, userId) {
-        const member = await prisma_1.prisma.workspaceMember.findUnique({
-            where: {
-                workspaceId_userId: {
-                    workspaceId,
-                    userId,
-                },
-            },
-        });
-        if (!member) {
-            throw new Error('Access denied');
-        }
-        const accessibleProjectIds = await this.getAccessibleProjectIds(workspaceId, userId);
+        await (0, access_resolver_1.resolveWorkspaceAccess)(workspaceId, userId);
+        const accessibleProjectIds = await (0, access_resolver_1.resolveAccessibleProjectIds)(workspaceId, userId);
+        const projectFilter = accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : { id: { in: [] } };
         const where = {
             board: {
                 project: {
                     workspaceId,
-                    ...(accessibleProjectIds.length > 0 ? { id: { in: accessibleProjectIds } } : {}),
+                    ...projectFilter,
                 },
             },
             deletedAt: null,

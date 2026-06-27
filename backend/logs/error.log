@@ -326,3 +326,58 @@
 2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
 2026-06-12 00:27:44:2744 [31merror[39m: [31mInvalid or expired token[39m
 2026-06-12 00:27:44:2744 [31merror[39m: [31mToo many requests, please try again later[39m
+2026-06-26 22:52:07:527 [31merror[39m: [31m[39m
+[31mInvalid `prisma.notification.count()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\notifications\notification.repository.ts:33:32[39m
+
+[31m  30 }[39m
+[31m  31 [39m
+[31m  32 async getUnreadCount(userId: string): Promise<number> {[39m
+[31m→ 33   return prisma.notification.count([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-26 22:52:12:5212 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-26 22:54:37:5437 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-27 00:00:26:026 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-27 00:00:45:045 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspace.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:50:22[39m
+
+[31m  47   },[39m
+[31m  48   select: { role: true },[39m
+[31m  49 }),[39m
+[31m→ 50 prisma.workspace.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m

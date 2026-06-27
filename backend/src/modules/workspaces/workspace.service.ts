@@ -4,6 +4,7 @@ import { ConflictError, NotFoundError, ForbiddenError, BadRequestError } from '.
 import { slugify } from '../../../src/utils/slugify';
 import { Role } from '../../generated/prisma';
 import { WorkspacePermissions } from './workspace.permissions';
+import { resolveWorkspaceAccess } from '../../permissions/access-resolver';
 
 export class WorkspaceService {
   private workspaceRepository: WorkspaceRepository;
@@ -27,8 +28,30 @@ export class WorkspaceService {
   }
 
   async createWorkspace(userId: string, data: CreateWorkspaceDto) {
+    // Authorization for creating a workspace must be enforced server-side.
+    // This codebase models permissions at the workspace-membership level.
+
+    // If the user is already a member of any workspace, their membership role
+    // determines whether they can create additional workspaces.
+    const memberships = await this.workspaceRepository.findAllByUser(userId);
+
+    // Capability matrix: MEMBER/VIEWER cannot create workspaces.
+    // We therefore allow creation only if the user is a workspace ADMIN (or first-time bootstrap).
+    if (memberships.length > 0) {
+      // For current schema we can infer role by checking their membership in any workspace.
+      // WorkspaceRepository does not expose a dedicated membership-role lookup,
+      // so we fetch one member record by scanning existing memberships.
+      // (No client-supplied role is trusted.)
+      const exampleWorkspace = memberships[0];
+      const member = await this.workspaceRepository.findMember(exampleWorkspace.id, userId);
+
+      if (!member || member.role !== Role.ADMIN) {
+        throw new ForbiddenError('You do not have permission to create workspaces');
+      }
+    }
+
     const slug = await this.generateUniqueSlug(data.name);
-    
+
     const workspace = await this.workspaceRepository.create({
       name: data.name,
       slug,
@@ -36,33 +59,43 @@ export class WorkspaceService {
       logo: data.logo,
       ownerId: userId,
     });
-    
-    // Add owner as ADMIN member
+
+    // Add owner as ADMIN member (storage role). EffectiveRole is computed as OWNER for the ownerId.
     await this.workspaceRepository.addMember({
       workspaceId: workspace.id,
       userId,
       role: Role.ADMIN,
     });
-    
+
     return workspace;
   }
 
   async getWorkspaceById(workspaceId: string, userId: string) {
-    const isMember = await this.workspaceRepository.isMember(workspaceId, userId);
-    if (!isMember) {
-      throw new ForbiddenError('You do not have access to this workspace');
-    }
-    
+    const access = await resolveWorkspaceAccess(workspaceId, userId);
+
     const workspace = await this.workspaceRepository.findById(workspaceId);
     if (!workspace) {
       throw new NotFoundError('Workspace');
     }
-    
-    return workspace;
+
+    return {
+      ...workspace,
+      currentUserRole: access.effectiveRole,
+    };
   }
 
   async getUserWorkspaces(userId: string) {
-    return this.workspaceRepository.findAllByUser(userId);
+    const workspaces = await this.workspaceRepository.findAllByUser(userId);
+
+    return Promise.all(
+      workspaces.map(async (workspace) => {
+        const access = await resolveWorkspaceAccess(workspace.id, userId);
+        return {
+          ...workspace,
+          currentUserRole: access.effectiveRole,
+        };
+      }),
+    );
   }
 
   async updateWorkspace(
@@ -76,7 +109,10 @@ export class WorkspaceService {
       throw new NotFoundError('Workspace');
     }
 
-    if (!WorkspacePermissions.canUpdateWorkspace(userRole, userId, workspace.ownerId)) {
+    const access = await resolveWorkspaceAccess(workspaceId, userId);
+    const roleForPermissions = access.permissionRole;
+
+    if (!WorkspacePermissions.canUpdateWorkspace(roleForPermissions, userId, workspace.ownerId)) {
       throw new ForbiddenError('You do not have permission to update this workspace');
     }
     
@@ -125,10 +161,11 @@ export class WorkspaceService {
   }
 
   async addMember(workspaceId: string, userId: string, userRole: Role, targetEmail: string, role: Role) {
-    if (!WorkspacePermissions.canInviteMembers(userRole)) {
+    const access = await resolveWorkspaceAccess(workspaceId, userId);
+    if (!WorkspacePermissions.canInviteMembers(access.permissionRole)) {
       throw new ForbiddenError('You do not have permission to invite members');
     }
-    
+
     // This will be implemented with invites in Step 5
     // For now, we'll add directly (simplified)
     const isMember = await this.workspaceRepository.isMember(workspaceId, userId);
@@ -144,19 +181,18 @@ export class WorkspaceService {
   }
 
   async removeMember(workspaceId: string, currentUserId: string, targetUserId: string) {
-    const currentMember = await this.workspaceRepository.findMember(workspaceId, currentUserId);
+    const access = await resolveWorkspaceAccess(workspaceId, currentUserId);
     const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
-    const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
-    
-    if (!currentMember || !targetMember || !ownerId) {
+
+    if (!targetMember) {
       throw new NotFoundError('Member');
     }
-    
+
     if (!WorkspacePermissions.canRemoveMember(
-      currentMember.role,
+      access.permissionRole,
       currentUserId,
       targetUserId,
-      ownerId,
+      access.ownerId,
     )) {
       throw new ForbiddenError('You do not have permission to remove this member');
     }
@@ -170,19 +206,18 @@ export class WorkspaceService {
     targetUserId: string,
     newRole: Role,
   ) {
-    const currentMember = await this.workspaceRepository.findMember(workspaceId, currentUserId);
+    const access = await resolveWorkspaceAccess(workspaceId, currentUserId);
     const targetMember = await this.workspaceRepository.findMember(workspaceId, targetUserId);
-    const ownerId = await this.workspaceRepository.getOwnerId(workspaceId);
-    
-    if (!currentMember || !targetMember || !ownerId) {
+
+    if (!targetMember) {
       throw new NotFoundError('Member');
     }
-    
+
     if (!WorkspacePermissions.canChangeRole(
-      currentMember.role,
+      access.permissionRole,
       currentUserId,
       targetUserId,
-      ownerId,
+      access.ownerId,
     )) {
       throw new ForbiddenError('You do not have permission to change this member\'s role');
     }
@@ -191,11 +226,8 @@ export class WorkspaceService {
   }
 
   async getWorkspaceMembers(workspaceId: string, userId: string) {
-    const isMember = await this.workspaceRepository.isMember(workspaceId, userId);
-    if (!isMember) {
-      throw new ForbiddenError('You do not have access to this workspace');
-    }
-    
+    await resolveWorkspaceAccess(workspaceId, userId);
+
     return this.workspaceRepository.findAllMembers(workspaceId);
   }
 }

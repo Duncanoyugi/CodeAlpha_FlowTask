@@ -1206,3 +1206,271 @@
 2026-06-15 19:47:56:4756 [32minfo[39m: [32m📝 Environment: development[39m
 2026-06-15 19:47:56:4756 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
 2026-06-15 19:47:56:4756 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-23 22:36:42:3642 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-23 22:36:42:3642 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-23 22:36:42:3642 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-23 22:36:42:3642 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-23 22:37:47:3747 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-23 22:37:49:3749 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-23 22:37:49:3749 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-23 22:37:49:3749 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:37:49:3749 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-23 22:37:51:3751 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-23 22:37:51:3751 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:14:3814 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:14:3814 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:16:3816 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:17:3817 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:39:3839 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:40:3840 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:43:3843 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:38:43:3843 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:39:29:3929 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-23 22:39:29:3929 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-24 03:51:16:5116 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-24 03:51:16:5116 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-24 03:51:16:5116 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-24 03:51:16:5116 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-25 02:33:24:3324 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-25 02:33:24:3324 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-25 02:33:24:3324 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-25 02:33:24:3324 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-25 02:42:39:4239 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-25 02:42:43:4243 [32minfo[39m: [32mUser connected: cmqa05n1y0000b9cwjwdvmo7f (kf2wNd9AtlIG7UEAAAAC)[39m
+2026-06-25 02:42:43:4243 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-25 02:42:43:4243 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-25 02:42:43:4243 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:42:44:4244 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-25 02:42:46:4246 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:42:47:4247 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-25 02:42:53:4253 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:42:53:4253 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:29:4629 [35mhttp[39m: [35mPOST /api/v1/workspaces[39m
+2026-06-25 02:46:37:4637 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:37:4637 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:46:37:4637 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:39:4639 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:46:40:4640 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:40:4640 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:40:4640 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:46:42:4642 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:47:4647 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:48:4648 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:55:4655 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:55:4655 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:46:55:4655 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:56:4656 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:46:56:4656 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:57:4657 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:46:57:4657 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:46:57:4657 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:47:01:471 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:47:02:472 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:47:05:475 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:47:05:475 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:47:05:475 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:47:06:476 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:49:27:4927 [35mhttp[39m: [35mPOST /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-25 02:50:11:5011 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:50:11:5011 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:50:11:5011 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/activities/projects/cmqsq6e930007b99cnbhhcfs1[39m
+2026-06-25 02:50:13:5013 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/activities/projects/cmqsq6e930007b99cnbhhcfs1[39m
+2026-06-25 02:50:13:5013 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:50:13:5013 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-25 02:50:13:5013 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:50:14:5014 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-25 02:50:16:5016 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/activities/projects/cmqsq6e930007b99cnbhhcfs1[39m
+2026-06-25 02:50:17:5017 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/activities/projects/cmqsq6e930007b99cnbhhcfs1[39m
+2026-06-25 03:11:40:1140 [32minfo[39m: [32mUser disconnected: cmqa05n1y0000b9cwjwdvmo7f (kf2wNd9AtlIG7UEAAAAC)[39m
+2026-06-26 01:56:25:5625 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-26 01:56:25:5625 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-26 01:56:25:5625 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-26 01:56:25:5625 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-26 02:00:31:031 [35mhttp[39m: [35mPOST /api/v1/auth/register[39m
+2026-06-26 02:00:33:033 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 02:00:33:033 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 02:00:33:033 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:00:33:033 [32minfo[39m: [32mUser connected: cmqu3v8ib0000b96c6n18oar7 (KlDdW4Dr67o3UqjGAAAC)[39m
+2026-06-26 02:00:33:033 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 02:00:35:035 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 02:00:35:035 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:00:43:043 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:00:43:043 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:00:47:047 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:00:47:047 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:23:123 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:24:124 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:29:129 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:30:130 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:32:132 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:32:132 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:41:141 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:41:141 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:48:148 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:48:148 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:51:151 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:01:51:151 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 02:02:28:228 [32minfo[39m: [32mUser disconnected: cmqu3v8ib0000b96c6n18oar7 (KlDdW4Dr67o3UqjGAAAC)[39m
+2026-06-26 22:46:43:4643 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-26 22:46:43:4643 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-26 22:46:43:4643 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-26 22:46:43:4643 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-26 22:49:15:4915 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-26 22:49:17:4917 [32minfo[39m: [32mUser connected: cmqu3v8ib0000b96c6n18oar7 (snmiMr3lG-cB8BGIAAAB)[39m
+2026-06-26 22:49:17:4917 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 22:49:17:4917 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 22:49:17:4917 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:18:4918 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 22:49:21:4921 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:22:4922 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 22:49:24:4924 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:25:4925 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:35:4935 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:35:4935 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:40:4940 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:41:4941 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:43:4943 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:49:43:4943 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:50:06:506 [32minfo[39m: [32mUser disconnected: cmqu3v8ib0000b96c6n18oar7 (snmiMr3lG-cB8BGIAAAB)[39m
+2026-06-26 22:50:56:5056 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-26 22:50:56:5056 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-26 22:50:56:5056 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-26 22:50:56:5056 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-26 22:51:56:5156 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-26 22:52:01:521 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 22:52:01:521 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 22:52:01:521 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:01:521 [32minfo[39m: [32mUser connected: cmqa05n1y0000b9cwjwdvmo7f (0qyeA5CAhT7XsbKOAAAC)[39m
+2026-06-26 22:52:03:523 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 22:52:07:527 [31merror[39m: [31m[39m
+[31mInvalid `prisma.notification.count()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\modules\notifications\notification.repository.ts:33:32[39m
+
+[31m  30 }[39m
+[31m  31 [39m
+[31m  32 async getUnreadCount(userId: string): Promise<number> {[39m
+[31m→ 33   return prisma.notification.count([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-26 22:52:07:527 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 22:52:12:5212 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-26 22:52:12:5212 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:14:5214 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:18:5218 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:30:5230 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:30:5230 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-26 22:52:30:5230 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-26 22:52:35:5235 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:45:5245 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:52:48:5248 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:54:21:5421 [35mhttp[39m: [35mPOST /api/v1/workspaces[39m
+2026-06-26 22:54:31:5431 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:54:31:5431 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/members[39m
+2026-06-26 22:54:31:5431 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-26 22:54:35:5435 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 22:54:37:5437 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-26 22:54:37:5437 [32minfo[39m: [32mUser disconnected: cmqa05n1y0000b9cwjwdvmo7f (0qyeA5CAhT7XsbKOAAAC)[39m
+2026-06-26 23:53:20:5320 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-26 23:53:20:5320 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-26 23:53:20:5320 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-26 23:53:20:5320 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-26 23:55:29:5529 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-26 23:55:37:5537 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 23:55:37:5537 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 23:55:37:5537 [32minfo[39m: [32mUser connected: cmqa05n1y0000b9cwjwdvmo7f (TZ67Us4QQk6LoSExAAAC)[39m
+2026-06-26 23:55:37:5537 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:55:38:5538 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-26 23:55:40:5540 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-26 23:55:43:5543 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:55:43:5543 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-26 23:55:43:5543 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/activities/workspace[39m
+2026-06-26 23:55:48:5548 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:55:51:5551 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:55:55:5555 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:55:55:5555 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-26 23:55:55:5555 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-26 23:56:03:563 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-26 23:56:53:5653 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-26 23:56:53:5653 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/members[39m
+2026-06-26 23:57:04:574 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-26 23:59:18:5918 [35mhttp[39m: [35mPOST /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-27 00:00:21:021 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:00:21:021 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-27 00:00:21:021 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-27 00:00:26:026 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspaceMember.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:41:28[39m
+
+[31m  38   userId: string,[39m
+[31m  39 ): Promise<{ membershipRole: Role; ownerId: string }> {[39m
+[31m  40   const [member, workspace] = await Promise.all([[39m
+[31m→ 41     prisma.workspaceMember.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-27 00:00:29:029 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:00:40:040 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-27 00:00:40:040 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/members[39m
+2026-06-27 00:00:45:045 [31merror[39m: [31m[39m
+[31mInvalid `prisma.workspace.findUnique()` invocation in[39m
+[31mC:\Users\X1 CARBON\OneDrive\Desktop\My projects\Task-Flow Project Management\backend\src\permissions\access-resolver.ts:50:22[39m
+
+[31m  47   },[39m
+[31m  48   select: { role: true },[39m
+[31m  49 }),[39m
+[31m→ 50 prisma.workspace.findUnique([39m
+[31mCan't reach database server at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`[39m
+
+[31mPlease make sure your database server is running at `ep-withered-rain-aqd3bpeb-pooler.c-8.us-east-1.aws.neon.tech:5432`.[39m
+2026-06-27 00:00:45:045 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-27 00:00:51:051 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-27 00:00:51:051 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-27 00:01:06:16 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-27 00:01:13:113 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-27 00:01:13:113 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/members[39m
+2026-06-27 00:01:22:122 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqvcnqml0003b94kmaai7ax0/projects[39m
+2026-06-27 00:01:28:128 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-27 00:01:28:128 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-27 00:01:41:141 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-27 00:12:11:1211 [32minfo[39m: [32mUser disconnected: cmqa05n1y0000b9cwjwdvmo7f (TZ67Us4QQk6LoSExAAAC)[39m
+2026-06-27 00:12:59:1259 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-27 00:12:59:1259 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-27 00:12:59:1259 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-27 00:12:59:1259 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-27 00:16:13:1613 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-27 00:16:16:1616 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-27 00:16:16:1616 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:16:1616 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-27 00:16:16:1616 [32minfo[39m: [32mUser connected: cmqu3v8ib0000b96c6n18oar7 (EdpFB3EvynEMCNjuAAAC)[39m
+2026-06-27 00:16:18:1618 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-27 00:16:19:1619 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-27 00:16:20:1620 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:26:1626 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:27:1627 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:31:1631 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:32:1632 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:36:1636 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:16:38:1638 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:18:27:1827 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-27 00:18:28:1828 [35mhttp[39m: [35mGET /api/v1/workspaces[39m

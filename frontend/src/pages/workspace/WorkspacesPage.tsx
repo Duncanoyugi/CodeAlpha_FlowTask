@@ -7,11 +7,14 @@ import CreateWorkspaceModal from '@components/workspace/CreateWorkspaceModal';
 import Button from '@components/ui/Button';
 import Spinner from '@components/ui/Spinner';
 import { Plus } from 'lucide-react';
+import { Role } from '@constants/roles';
 
 const WorkspacesPage = () => {
   const dispatch = useAppDispatch();
-  const { workspaces, isLoading } = useAppSelector((state) => state.workspace);
+  const { workspaces, isLoading, currentRole } = useAppSelector((state) => state.workspace);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const canCreateWorkspace = currentRole === Role.ADMIN || currentRole === Role.OWNER;
 
   useEffect(() => {
     dispatch(fetchWorkspaces());
@@ -53,10 +56,14 @@ const WorkspacesPage = () => {
           <h1 className="text-2xl font-bold text-gray-900">Workspaces</h1>
           <p className="text-gray-600 mt-1">Manage your team workspaces and collaborate on projects</p>
         </div>
-        <Button onClick={() => setIsCreateModalOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          New Workspace
-        </Button>
+        {canCreateWorkspace ? (
+          <Button onClick={() => setIsCreateModalOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            New Workspace
+          </Button>
+        ) : (
+          <div />
+        )}
       </div>
 
       {workspaces.length === 0 ? (
@@ -68,10 +75,14 @@ const WorkspacesPage = () => {
           </div>
           <h3 className="text-lg font-medium text-gray-900">No workspaces yet</h3>
           <p className="text-gray-500 mt-1">Create your first workspace to get started</p>
-          <Button className="mt-4" onClick={() => setIsCreateModalOpen(true)}>
-            <Plus className="h-4 w-4 mr-2" />
-            Create Workspace
-          </Button>
+          {canCreateWorkspace ? (
+            <Button className="mt-4" onClick={() => setIsCreateModalOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Create Workspace
+            </Button>
+          ) : (
+            <div />
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

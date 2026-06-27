@@ -1,10 +1,8 @@
 import { ColumnRepository } from './column.repository';
 import { CreateColumnDto, UpdateColumnDto, ReorderColumnsDto } from './column.dto';
 import { NotFoundError, ForbiddenError } from '../../../src/utils/error';
-import { prisma } from '../../../src/lib/prisma';
-import { Role } from '../../generated/prisma';
 import { ColumnPermissions } from '../../../src/permissions/column.permissions';
-import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
+import { resolveBoardAccess } from '../../../src/permissions/access-resolver';
 
 export class ColumnService {
   private columnRepository: ColumnRepository;
@@ -13,23 +11,10 @@ export class ColumnService {
     this.columnRepository = new ColumnRepository();
   }
 
-  private async checkBoardAccess(boardId: string, userId: string): Promise<{ role: Role; ownerId: string }> {
-    const board = await prisma.board.findUnique({
-      where: { id: boardId },
-      select: { projectId: true },
-    });
-
-    if (!board) {
-      throw new NotFoundError('Board');
-    }
-
-    return assertProjectAccess(board.projectId, userId);
-  }
-
   async createColumn(boardId: string, userId: string, data: CreateColumnDto) {
-    const workspaceAccess = await this.checkBoardAccess(boardId, userId);
-    
-    if (!ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
+    const workspaceAccess = await resolveBoardAccess(boardId, userId);
+
+    if (!ColumnPermissions.canManageColumn(workspaceAccess.permissionRole, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to create columns');
     }
 
@@ -48,13 +33,13 @@ export class ColumnService {
       throw new NotFoundError('Column');
     }
 
-    await this.checkBoardAccess(column.boardId, userId);
-    
+    await resolveBoardAccess(column.boardId, userId);
+
     return column;
   }
 
   async getBoardColumns(boardId: string, userId: string) {
-    await this.checkBoardAccess(boardId, userId);
+    await resolveBoardAccess(boardId, userId);
     return this.columnRepository.findAllByBoard(boardId);
   }
 
@@ -64,9 +49,9 @@ export class ColumnService {
       throw new NotFoundError('Column');
     }
 
-    const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
-    
-    if (!ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
+    const workspaceAccess = await resolveBoardAccess(column.boardId, userId);
+
+    if (!ColumnPermissions.canManageColumn(workspaceAccess.permissionRole, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to update this column');
     }
 
@@ -79,9 +64,9 @@ export class ColumnService {
       throw new NotFoundError('Column');
     }
 
-    const workspaceAccess = await this.checkBoardAccess(column.boardId, userId);
-    
-    if (!ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
+    const workspaceAccess = await resolveBoardAccess(column.boardId, userId);
+
+    if (!ColumnPermissions.canManageColumn(workspaceAccess.permissionRole, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to delete this column');
     }
 
@@ -89,9 +74,9 @@ export class ColumnService {
   }
 
   async reorderColumns(boardId: string, userId: string, data: ReorderColumnsDto) {
-    const workspaceAccess = await this.checkBoardAccess(boardId, userId);
-    
-    if (!ColumnPermissions.canManageColumn(workspaceAccess.role, userId, workspaceAccess.ownerId)) {
+    const workspaceAccess = await resolveBoardAccess(boardId, userId);
+
+    if (!ColumnPermissions.canManageColumn(workspaceAccess.permissionRole, userId, workspaceAccess.ownerId)) {
       throw new ForbiddenError('You do not have permission to reorder columns');
     }
 

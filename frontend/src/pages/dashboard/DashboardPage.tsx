@@ -5,10 +5,7 @@ import { fetchWorkspaces, fetchWorkspaceMembers } from '@store/slices/workspaceS
 import { fetchTasks } from '@store/slices/taskSlice';
 import { fetchColumns } from '@store/slices/boardSlice';
 import { fetchProjectActivities, fetchWorkspaceActivities } from '@store/slices/activitySlice';
-import {
-  isWorkspaceOwner,
-  Role,
-} from '@constants/roles';
+import { Role } from '@constants/roles';
 import {
   AdminDashboard,
   MemberDashboard,
@@ -21,7 +18,7 @@ const DashboardPage = () => {
   const { user, isAuthenticated, isLoading: authLoading } = useAppSelector(
     (state) => state.auth
   );
-  const { workspaces, currentWorkspace, members } = useAppSelector(
+  const { workspaces, currentWorkspace, currentRole } = useAppSelector(
     (state) => state.workspace
   );
   const { projects } = useAppSelector((state) => state.project);
@@ -32,21 +29,7 @@ const DashboardPage = () => {
     (state) => state.activity
   );
 
-  const effectiveRole = currentWorkspace && user
-    ? (() => {
-        const memberRole =
-          currentWorkspace.role ??
-          members.find((m) => m.user.id === user.id)?.role ??
-          Role.MEMBER;
-        if (
-          memberRole === Role.ADMIN &&
-          isWorkspaceOwner(currentWorkspace.ownerId, user.id)
-        ) {
-          return Role.OWNER;
-        }
-        return memberRole;
-      })()
-    : Role.MEMBER;
+  const effectiveRole = currentRole ?? Role.MEMBER;
 
   useEffect(() => {
     if (isAuthenticated && !user) {

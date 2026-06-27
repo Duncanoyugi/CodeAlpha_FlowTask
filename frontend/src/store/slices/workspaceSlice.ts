@@ -129,6 +129,7 @@ const workspaceSlice = createSlice({
     },
     setCurrentWorkspace: (state, action: PayloadAction<Workspace>) => {
       state.currentWorkspace = action.payload;
+      state.currentRole = action.payload.currentUserRole ?? null;
     },
     clearCurrentWorkspace: (state) => {
       state.currentWorkspace = null;
@@ -154,10 +155,12 @@ const workspaceSlice = createSlice({
       })
       .addCase(fetchWorkspaceById.fulfilled, (state, action) => {
         state.currentWorkspace = action.payload;
+        state.currentRole = action.payload.currentUserRole ?? null;
       })
       .addCase(createWorkspace.fulfilled, (state, action) => {
         state.workspaces.unshift(action.payload);
         state.currentWorkspace = action.payload;
+        state.currentRole = action.payload.currentUserRole ?? null;
       })
       .addCase(updateWorkspace.fulfilled, (state, action) => {
         const index = state.workspaces.findIndex((w) => w.id === action.payload.id);
@@ -166,6 +169,7 @@ const workspaceSlice = createSlice({
         }
         if (state.currentWorkspace?.id === action.payload.id) {
           state.currentWorkspace = action.payload;
+          state.currentRole = action.payload.currentUserRole ?? null;
         }
       })
       .addCase(deleteWorkspace.fulfilled, (state, action) => {
@@ -178,7 +182,12 @@ const workspaceSlice = createSlice({
         state.members = action.payload;
         const storedUser = getStoredUser();
         const currentMember = action.payload.find((member) => member.user.id === storedUser?.userId);
-        state.currentRole = currentMember?.role ?? null;
+
+        // Prefer backend-computed effective role from the loaded workspace.
+        // Only fall back to raw member role if the backend didn't provide currentUserRole
+        // (e.g., during migration / older responses).
+        state.currentRole =
+          state.currentWorkspace?.currentUserRole ?? currentMember?.role ?? null;
       })
       .addCase(updateMemberRole.fulfilled, (state, action) => {
         const index = state.members.findIndex((m) => m.id === action.payload.id);

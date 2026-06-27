@@ -123,37 +123,9 @@ const initializeSocket = (server) => {
                 isTyping: false,
             });
         });
-        // Handle realtime task updates
-        socket.on('task:created', (taskData) => {
-            socket.to(`board:${taskData.boardId}`).emit('task:created', taskData);
-        });
-        socket.on('task:updated', (taskData) => {
-            socket.to(`board:${taskData.boardId}`).emit('task:updated', taskData);
-        });
-        socket.on('task:moved', (moveData) => {
-            socket.to(`board:${moveData.boardId}`).emit('task:moved', moveData);
-        });
-        socket.on('task:deleted', (data) => {
-            socket.to(`board:${data.boardId}`).emit('task:deleted', data);
-        });
-        // Handle realtime comment updates
-        socket.on('comment:added', (commentData) => {
-            socket.to(`task:${commentData.taskId}`).emit('comment:added', commentData);
-            // Also notify board for activity feed
-            if (commentData.boardId) {
-                socket.to(`board:${commentData.boardId}`).emit('activity:updated', {
-                    type: 'comment',
-                    taskId: commentData.taskId,
-                    comment: commentData,
-                });
-            }
-        });
-        socket.on('comment:updated', (commentData) => {
-            socket.to(`task:${commentData.taskId}`).emit('comment:updated', commentData);
-        });
-        socket.on('comment:deleted', (data) => {
-            socket.to(`task:${data.taskId}`).emit('comment:deleted', data);
-        });
+        // Handle realtime task/comment updates
+        // NOTE: mutations are handled in backend/src/sockets/handlers/* (canonical system).
+        // This legacy mirror block is intentionally disabled to prevent duplicate listeners and event drift.
         // Handle notifications
         socket.on('notification:read', (data) => {
             // Update in database is handled by REST API

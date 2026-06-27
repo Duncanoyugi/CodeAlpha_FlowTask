@@ -3,7 +3,7 @@ import { CreateCommentDto, UpdateCommentDto } from './comment.dto';
 import { NotFoundError, ForbiddenError } from '../../../src/utils/error';
 import { prisma } from '../../../src/lib/prisma';
 import { Role } from '../../generated/prisma';
-import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
+import { resolveTaskAccess } from '../../../src/permissions/access-resolver';
 
 export class CommentService {
   private commentRepository: CommentRepository;
@@ -12,37 +12,15 @@ export class CommentService {
     this.commentRepository = new CommentRepository();
   }
 
-  private async checkTaskAccess(taskId: string, userId: string): Promise<{ role: Role; ownerId: string }> {
-    const task = await prisma.task.findUnique({
-      where: { id: taskId },
-      select: { boardId: true },
-    });
-
-    if (!task) {
-      throw new NotFoundError('Task');
-    }
-
-    const board = await prisma.board.findUnique({
-      where: { id: task.boardId },
-      select: { projectId: true },
-    });
-
-    if (!board) {
-      throw new NotFoundError('Board');
-    }
-
-    return assertProjectAccess(board.projectId, userId);
-  }
-
   private extractMentions(content: string): string[] {
     const mentionRegex = /@(\w+)/g;
     const matches = content.matchAll(mentionRegex);
     const mentions = new Set<string>();
-    
+
     for (const match of matches) {
       mentions.add(match[1]);
     }
-    
+
     return Array.from(mentions);
   }
 
@@ -71,9 +49,8 @@ export class CommentService {
     userId: string,
     data: CreateCommentDto,
   ) {
-    const workspaceAccess = await this.checkTaskAccess(taskId, userId);
-    
-    // All roles including VIEWER can comment
+    await resolveTaskAccess(taskId, userId);
+
     const comment = await this.commentRepository.create({
       taskId,
       authorId: userId,
@@ -132,13 +109,13 @@ export class CommentService {
       throw new NotFoundError('Comment');
     }
 
-    await this.checkTaskAccess(comment.taskId, userId);
+    await resolveTaskAccess(comment.taskId, userId);
     
     return comment;
   }
 
   async getTaskComments(taskId: string, userId: string) {
-    await this.checkTaskAccess(taskId, userId);
+    await resolveTaskAccess(taskId, userId);
     return this.commentRepository.findAllByTask(taskId);
   }
 
@@ -148,9 +125,9 @@ export class CommentService {
       throw new NotFoundError('Comment');
     }
 
-    const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
+    const access = await resolveTaskAccess(comment.taskId, userId);
 
-    if (comment.authorId !== userId && workspaceAccess.role !== Role.ADMIN) {
+    if (comment.authorId !== userId && access.permissionRole !== Role.ADMIN) {
       throw new ForbiddenError('You do not have permission to edit this comment');
     }
 
@@ -190,10 +167,9 @@ export class CommentService {
       throw new NotFoundError('Comment');
     }
 
-    const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
-    
-    // Author or ADMIN can delete
-    if (comment.authorId !== userId && workspaceAccess.role !== Role.ADMIN) {
+    const access = await resolveTaskAccess(comment.taskId, userId);
+
+    if (comment.authorId !== userId && access.permissionRole !== Role.ADMIN) {
       throw new ForbiddenError('You do not have permission to delete this comment');
     }
 

@@ -108,6 +108,7 @@ const TaskDetailModal = ({ isOpen, onClose, taskId }: TaskDetailModalProps) => {
     socket.on('comment:updated', handleCommentUpdated);
     socket.on('comment:deleted', handleCommentDeleted);
 
+
     return () => {
       socket.off('comment:added', handleCommentAdded);
       socket.off('comment:updated', handleCommentUpdated);

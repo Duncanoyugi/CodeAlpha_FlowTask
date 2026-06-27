@@ -8,6 +8,7 @@ export interface Workspace {
   logo: string | null;
   ownerId: string;
   role?: Role;
+  currentUserRole?: Role;
   createdAt: string;
   updatedAt: string;
 }

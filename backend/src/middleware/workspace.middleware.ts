@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { AuthRequest } from './auth.middleware';
-import { prisma } from '../lib/prisma';
-import { ForbiddenError, NotFoundError } from '../utils/error';
+import { ForbiddenError } from '../utils/error';
+import { resolveWorkspaceAccess } from '../permissions/access-resolver';
 
 export const workspaceAccessMiddleware = async (
   req: AuthRequest,
@@ -20,20 +20,10 @@ export const workspaceAccessMiddleware = async (
       throw new ForbiddenError('Authentication required');
     }
 
-    const member = await prisma.workspaceMember.findUnique({
-      where: {
-        workspaceId_userId: {
-          workspaceId,
-          userId,
-        },
-      },
-    });
+    const access = await resolveWorkspaceAccess(workspaceId, userId);
 
-    if (!member) {
-      throw new ForbiddenError('You do not have access to this workspace');
-    }
-
-    (req as any).userRole = member.role;
+    (req as any).userRole = access.permissionRole;
+    (req as any).effectiveRole = access.effectiveRole;
     next();
   } catch (error) {
     next(error);

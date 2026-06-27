@@ -2,14 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerCommentHandlers = void 0;
 const prisma_1 = require("../../lib/prisma");
+const prisma_2 = require("../../generated/prisma");
+const socket_authz_1 = require("../errors/socket-authz");
+const access_resolver_1 = require("../../permissions/access-resolver");
+const error_1 = require("../../utils/error");
 const registerCommentHandlers = (socket) => {
-    socket.on('comment:add', async (data) => {
+    socket.on('comment:added', async (data) => {
         try {
-            const { taskId, content, userId, boardId } = data;
+            const { taskId, content, boardId } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, currentUserId);
+            if (access.permissionRole === prisma_2.Role.VIEWER) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to add comments');
+            }
             const comment = await prisma_1.prisma.comment.create({
                 data: {
                     taskId,
-                    authorId: userId,
+                    authorId: currentUserId,
                     content,
                 },
                 include: {
@@ -30,15 +39,33 @@ const registerCommentHandlers = (socket) => {
                 taskId,
                 comment,
             });
-            socket.emit('comment:add:success', comment);
+            socket.emit('comment:added', comment);
         }
         catch (error) {
-            socket.emit('comment:add:error', { message: 'Failed to add comment' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError || error instanceof error_1.ForbiddenError
+                ? error.message
+                : 'Failed to add comment';
+            socket.emit('comment:error', { message });
         }
     });
-    socket.on('comment:edit', async (data) => {
+    socket.on('comment:updated', async (data) => {
         try {
             const { commentId, content, taskId } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, currentUserId);
+            if (access.permissionRole === prisma_2.Role.VIEWER) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to edit comments');
+            }
+            const existing = await prisma_1.prisma.comment.findUnique({
+                where: { id: commentId },
+                select: { authorId: true },
+            });
+            if (!existing) {
+                throw new socket_authz_1.SocketForbiddenError('Comment not found');
+            }
+            if (existing.authorId !== currentUserId && access.permissionRole !== prisma_2.Role.ADMIN) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to edit this comment');
+            }
             const comment = await prisma_1.prisma.comment.update({
                 where: { id: commentId },
                 data: {
@@ -58,23 +85,44 @@ const registerCommentHandlers = (socket) => {
                 },
             });
             socket.to(`task:${taskId}`).emit('comment:updated', comment);
-            socket.emit('comment:edit:success', comment);
+            socket.emit('comment:updated', comment);
         }
         catch (error) {
-            socket.emit('comment:edit:error', { message: 'Failed to edit comment' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError || error instanceof error_1.ForbiddenError
+                ? error.message
+                : 'Failed to edit comment';
+            socket.emit('comment:error', { message });
         }
     });
     socket.on('comment:delete', async (data) => {
         try {
             const { commentId, taskId } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, currentUserId);
+            if (access.permissionRole === prisma_2.Role.VIEWER) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to delete comments');
+            }
+            const existing = await prisma_1.prisma.comment.findUnique({
+                where: { id: commentId },
+                select: { authorId: true },
+            });
+            if (!existing) {
+                throw new socket_authz_1.SocketForbiddenError('Comment not found');
+            }
+            if (existing.authorId !== currentUserId && access.permissionRole !== prisma_2.Role.ADMIN) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to delete this comment');
+            }
             await prisma_1.prisma.comment.delete({
                 where: { id: commentId },
             });
             socket.to(`task:${taskId}`).emit('comment:deleted', { commentId, taskId });
-            socket.emit('comment:delete:success', { commentId });
+            socket.emit('comment:deleted', { commentId, taskId });
         }
         catch (error) {
-            socket.emit('comment:delete:error', { message: 'Failed to delete comment' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError || error instanceof error_1.ForbiddenError
+                ? error.message
+                : 'Failed to delete comment';
+            socket.emit('comment:error', { message });
         }
     });
 };

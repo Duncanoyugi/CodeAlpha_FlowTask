@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from '@components/ui/Modal';
 import Input from '@components/ui/Input';
 import Button from '@components/ui/Button';
+import { usePermissions } from '@hooks/usePermissions';
 
 interface CreateProjectModalProps {
   isOpen: boolean;
@@ -14,6 +15,9 @@ const colorOptions = [
 ];
 
 const CreateProjectModal = ({ isOpen, onClose, onSubmit }: CreateProjectModalProps) => {
+  const { canCreateProject } = usePermissions();
+
+  if (!canCreateProject) return null;
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [color, setColor] = useState('#3b82f6');

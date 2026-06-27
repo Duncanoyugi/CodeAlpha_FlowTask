@@ -5,28 +5,11 @@ const comment_repository_1 = require("./comment.repository");
 const error_1 = require("../../../src/utils/error");
 const prisma_1 = require("../../../src/lib/prisma");
 const prisma_2 = require("../../generated/prisma");
-const project_access_permissions_1 = require("../../../src/permissions/project-access.permissions");
+const access_resolver_1 = require("../../../src/permissions/access-resolver");
 class CommentService {
     commentRepository;
     constructor() {
         this.commentRepository = new comment_repository_1.CommentRepository();
-    }
-    async checkTaskAccess(taskId, userId) {
-        const task = await prisma_1.prisma.task.findUnique({
-            where: { id: taskId },
-            select: { boardId: true },
-        });
-        if (!task) {
-            throw new error_1.NotFoundError('Task');
-        }
-        const board = await prisma_1.prisma.board.findUnique({
-            where: { id: task.boardId },
-            select: { projectId: true },
-        });
-        if (!board) {
-            throw new error_1.NotFoundError('Board');
-        }
-        return (0, project_access_permissions_1.assertProjectAccess)(board.projectId, userId);
     }
     extractMentions(content) {
         const mentionRegex = /@(\w+)/g;
@@ -56,8 +39,7 @@ class CommentService {
         return users.map(m => m.user.id);
     }
     async createComment(taskId, userId, data) {
-        const workspaceAccess = await this.checkTaskAccess(taskId, userId);
-        // All roles including VIEWER can comment
+        await (0, access_resolver_1.resolveTaskAccess)(taskId, userId);
         const comment = await this.commentRepository.create({
             taskId,
             authorId: userId,
@@ -110,11 +92,11 @@ class CommentService {
         if (!comment) {
             throw new error_1.NotFoundError('Comment');
         }
-        await this.checkTaskAccess(comment.taskId, userId);
+        await (0, access_resolver_1.resolveTaskAccess)(comment.taskId, userId);
         return comment;
     }
     async getTaskComments(taskId, userId) {
-        await this.checkTaskAccess(taskId, userId);
+        await (0, access_resolver_1.resolveTaskAccess)(taskId, userId);
         return this.commentRepository.findAllByTask(taskId);
     }
     async updateComment(commentId, userId, data) {
@@ -122,8 +104,8 @@ class CommentService {
         if (!comment) {
             throw new error_1.NotFoundError('Comment');
         }
-        const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
-        if (comment.authorId !== userId && workspaceAccess.role !== prisma_2.Role.ADMIN) {
+        const access = await (0, access_resolver_1.resolveTaskAccess)(comment.taskId, userId);
+        if (comment.authorId !== userId && access.permissionRole !== prisma_2.Role.ADMIN) {
             throw new error_1.ForbiddenError('You do not have permission to edit this comment');
         }
         const updatedComment = await this.commentRepository.update(commentId, data.content);
@@ -156,9 +138,8 @@ class CommentService {
         if (!comment) {
             throw new error_1.NotFoundError('Comment');
         }
-        const workspaceAccess = await this.checkTaskAccess(comment.taskId, userId);
-        // Author or ADMIN can delete
-        if (comment.authorId !== userId && workspaceAccess.role !== prisma_2.Role.ADMIN) {
+        const access = await (0, access_resolver_1.resolveTaskAccess)(comment.taskId, userId);
+        if (comment.authorId !== userId && access.permissionRole !== prisma_2.Role.ADMIN) {
             throw new error_1.ForbiddenError('You do not have permission to delete this comment');
         }
         await this.commentRepository.deleteMentions(commentId);

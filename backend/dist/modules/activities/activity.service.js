@@ -4,7 +4,7 @@ exports.ActivityService = void 0;
 const activity_repository_1 = require("./activity.repository");
 const prisma_1 = require("../../../src/lib/prisma");
 const prisma_2 = require("../../generated/prisma");
-const project_access_permissions_1 = require("../../../src/permissions/project-access.permissions");
+const access_resolver_1 = require("../../../src/permissions/access-resolver");
 const error_1 = require("../../../src/utils/error");
 class ActivityService {
     activityRepository;
@@ -74,19 +74,8 @@ class ActivityService {
         });
     }
     async getWorkspaceActivities(workspaceId, userId) {
-        // Verify user has access to workspace
-        const member = await prisma_1.prisma.workspaceMember.findUnique({
-            where: {
-                workspaceId_userId: {
-                    workspaceId,
-                    userId,
-                },
-            },
-        });
-        if (!member) {
-            throw new error_1.ForbiddenError('You do not have access to this workspace');
-        }
-        if (member.role === prisma_2.Role.VIEWER) {
+        const access = await (0, access_resolver_1.resolveWorkspaceAccess)(workspaceId, userId);
+        if (access.permissionRole === prisma_2.Role.VIEWER) {
             throw new error_1.ForbiddenError('You do not have permission to view activity logs');
         }
         return this.activityRepository.findAllByWorkspace(workspaceId);
@@ -106,15 +95,15 @@ class ActivityService {
         if (!board) {
             throw new error_1.NotFoundError('Board');
         }
-        const workspaceAccess = await (0, project_access_permissions_1.assertProjectAccess)(board.projectId, userId);
-        if (workspaceAccess.role === prisma_2.Role.VIEWER) {
+        const access = await (0, access_resolver_1.resolveProjectAccess)(board.projectId, userId);
+        if (access.permissionRole === prisma_2.Role.VIEWER) {
             throw new error_1.ForbiddenError('You do not have permission to view activity logs');
         }
         return this.activityRepository.findAllByTask(taskId);
     }
     async getProjectActivities(projectId, userId) {
-        const workspaceAccess = await (0, project_access_permissions_1.assertProjectAccess)(projectId, userId);
-        if (workspaceAccess.role === prisma_2.Role.VIEWER) {
+        const access = await (0, access_resolver_1.resolveProjectAccess)(projectId, userId);
+        if (access.permissionRole === prisma_2.Role.VIEWER) {
             throw new error_1.ForbiddenError('You do not have permission to view activity logs');
         }
         return this.activityRepository.findAllByProject(projectId);

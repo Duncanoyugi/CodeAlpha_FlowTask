@@ -2,17 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerTaskHandlers = void 0;
 const prisma_1 = require("../../lib/prisma");
+const socket_authz_1 = require("../errors/socket-authz");
+const task_permissions_1 = require("../../modules/tasks/task.permissions");
+const access_resolver_1 = require("../../permissions/access-resolver");
+const error_1 = require("../../utils/error");
 const registerTaskHandlers = (socket) => {
-    socket.on('task:create', async (data) => {
+    socket.on('task:created', async (data) => {
         try {
-            const { boardId, columnId, title, priority, userId } = data;
+            const { boardId, columnId, title, priority } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveBoardAccess)(boardId, currentUserId);
+            if (!task_permissions_1.TaskPermissions.canCreateTask(access.permissionRole)) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to create tasks');
+            }
             const task = await prisma_1.prisma.task.create({
                 data: {
                     boardId,
                     columnId,
                     title,
                     priority,
-                    reporterId: userId,
+                    reporterId: currentUserId,
                     position: 0,
                 },
                 include: {
@@ -35,15 +44,23 @@ const registerTaskHandlers = (socket) => {
                 },
             });
             socket.to(`board:${boardId}`).emit('task:created', task);
-            socket.emit('task:create:success', task);
+            socket.emit('task:created', task);
         }
         catch (error) {
-            socket.emit('task:create:error', { message: 'Failed to create task' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError
+                ? error.message
+                : 'Failed to create task';
+            socket.emit('task:created', { error: 'Forbidden', message });
         }
     });
-    socket.on('task:move', async (data) => {
+    socket.on('task:moved', async (data) => {
         try {
             const { taskId, columnId, position, boardId } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, currentUserId);
+            if (!task_permissions_1.TaskPermissions.canMoveTask(access.permissionRole, access.reporterId, access.assigneeId, currentUserId)) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to move tasks');
+            }
             const task = await prisma_1.prisma.task.update({
                 where: { id: taskId },
                 data: {
@@ -66,15 +83,26 @@ const registerTaskHandlers = (socket) => {
                 oldColumnId: data.oldColumnId,
                 newColumnId: columnId,
             });
-            socket.emit('task:move:success', task);
+            socket.emit('task:moved', task);
         }
         catch (error) {
-            socket.emit('task:move:error', { message: 'Failed to move task' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError || error instanceof error_1.ForbiddenError
+                ? error.message
+                : 'Failed to move task';
+            socket.emit('task:moved', { error: 'Forbidden', message });
         }
     });
-    socket.on('task:update', async (data) => {
+    socket.on('task:updated', async (data) => {
         try {
             const { taskId, boardId, ...updates } = data;
+            const currentUserId = socket.data.userId;
+            const access = await (0, access_resolver_1.resolveTaskAccess)(taskId, currentUserId);
+            if (!task_permissions_1.TaskPermissions.canUpdateTask(access.permissionRole, access.reporterId, access.assigneeId, currentUserId)) {
+                throw new socket_authz_1.SocketForbiddenError('You do not have permission to update tasks');
+            }
+            if (boardId && boardId !== access.boardId) {
+                throw new socket_authz_1.SocketForbiddenError('Task does not belong to the specified board');
+            }
             const task = await prisma_1.prisma.task.update({
                 where: { id: taskId },
                 data: updates,
@@ -91,10 +119,13 @@ const registerTaskHandlers = (socket) => {
             });
             socket.to(`board:${boardId}`).emit('task:updated', task);
             socket.to(`task:${taskId}`).emit('task:updated', task);
-            socket.emit('task:update:success', task);
+            socket.emit('task:updated', task);
         }
         catch (error) {
-            socket.emit('task:update:error', { message: 'Failed to update task' });
+            const message = error instanceof socket_authz_1.SocketForbiddenError || error instanceof error_1.ForbiddenError
+                ? error.message
+                : 'Failed to update task';
+            socket.emit('task:updated', { error: 'Forbidden', message });
         }
     });
 };

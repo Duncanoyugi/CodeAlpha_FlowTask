@@ -1,7 +1,10 @@
 import { ActivityRepository } from './activity.repository';
 import { prisma } from '../../../src/lib/prisma';
 import { EntityType, Action, Role } from '../../generated/prisma';
-import { assertProjectAccess } from '../../../src/permissions/project-access.permissions';
+import {
+  resolveProjectAccess,
+  resolveWorkspaceAccess,
+} from '../../../src/permissions/access-resolver';
 import { ForbiddenError, NotFoundError } from '../../../src/utils/error';
 
 export class ActivityService {
@@ -77,14 +80,14 @@ export class ActivityService {
       where: { id: assigneeId },
       select: { firstName: true, lastName: true },
     });
-    
+
     return this.logActivity(
       workspaceId,
       userId,
       EntityType.TASK,
       taskId,
       Action.ASSIGNED,
-      { 
+      {
         assigneeId,
         assigneeName: assignee ? `${assignee.firstName} ${assignee.lastName}` : 'Unknown',
         message: `Task assigned to ${assignee?.firstName || 'user'}`,
@@ -155,14 +158,14 @@ export class ActivityService {
       where: { id: removedUserId },
       select: { email: true },
     });
-    
+
     return this.logActivity(
       workspaceId,
       userId,
       EntityType.MEMBER,
       removedUserId,
       Action.MEMBER_REMOVED,
-      { 
+      {
         removedUserId,
         removedEmail: removedUser?.email,
         message: `Removed ${removedUser?.email || 'user'} from workspace`,
@@ -181,7 +184,7 @@ export class ActivityService {
       where: { id: targetUserId },
       select: { email: true },
     });
-    
+
     return this.logActivity(
       workspaceId,
       userId,
@@ -199,21 +202,9 @@ export class ActivityService {
   }
 
   async getWorkspaceActivities(workspaceId: string, userId: string) {
-    // Verify user has access to workspace
-    const member = await prisma.workspaceMember.findUnique({
-      where: {
-        workspaceId_userId: {
-          workspaceId,
-          userId,
-        },
-      },
-    });
+    const access = await resolveWorkspaceAccess(workspaceId, userId);
 
-    if (!member) {
-      throw new ForbiddenError('You do not have access to this workspace');
-    }
-
-    if (member.role === Role.VIEWER) {
+    if (access.permissionRole === Role.VIEWER) {
       throw new ForbiddenError('You do not have permission to view activity logs');
     }
 
@@ -239,9 +230,9 @@ export class ActivityService {
       throw new NotFoundError('Board');
     }
 
-    const workspaceAccess = await assertProjectAccess(board.projectId, userId);
+    const access = await resolveProjectAccess(board.projectId, userId);
 
-    if (workspaceAccess.role === Role.VIEWER) {
+    if (access.permissionRole === Role.VIEWER) {
       throw new ForbiddenError('You do not have permission to view activity logs');
     }
 
@@ -249,9 +240,9 @@ export class ActivityService {
   }
 
   async getProjectActivities(projectId: string, userId: string) {
-    const workspaceAccess = await assertProjectAccess(projectId, userId);
+    const access = await resolveProjectAccess(projectId, userId);
 
-    if (workspaceAccess.role === Role.VIEWER) {
+    if (access.permissionRole === Role.VIEWER) {
       throw new ForbiddenError('You do not have permission to view activity logs');
     }
 

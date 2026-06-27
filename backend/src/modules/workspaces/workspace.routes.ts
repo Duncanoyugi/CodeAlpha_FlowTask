@@ -18,6 +18,9 @@ const workspaceController = new WorkspaceController();
 router.use(authMiddleware);
 
 // Workspace CRUD
+// Workspace creation is authorization-sensitive: enforce role-based capability at the controller/service boundary.
+// Current codebase does not derive effective workspace role for creation (workspace doesn't exist yet), so we require auth middleware
+// to attach userRole or reject.
 router.post('/', validate(CreateWorkspaceSchema), workspaceController.createWorkspace);
 router.get('/', workspaceController.getUserWorkspaces);
 router.get('/:workspaceId', validate(WorkspaceIdSchema), workspaceController.getWorkspace);

@@ -202,13 +202,18 @@ export class TaskRepository {
   }
 
   async reorderTasks(columnId: string, taskIds: string[]): Promise<void> {
-    for (let i = 0; i < taskIds.length; i++) {
-      await prisma.task.update({
-        where: { id: taskIds[i] },
-        data: { position: (i + 1) * 100 },
-      });
-    }
+    // Repository-level implementation (non-transactional). For atomicity, prefer
+    // calling TaskService methods that wrap this in prisma.$transaction.
+    await Promise.all(
+      taskIds.map((taskId, index) =>
+        prisma.task.update({
+          where: { id: taskId },
+          data: { position: (index + 1) * 100 },
+        })
+      )
+    );
   }
+
 
   async getColumnId(taskId: string): Promise<string | null> {
     const task = await prisma.task.findUnique({

@@ -1,6 +1,6 @@
 import { TaskRepository } from './task.repository';
 import { CreateTaskDto, UpdateTaskDto, MoveTaskDto } from './task.dto';
-import { NotFoundError, ForbiddenError } from '../../../src/utils/error';
+import { BadRequestError, NotFoundError, ForbiddenError } from '../../../src/utils/error';
 import { prisma } from '../../../src/lib/prisma';
 import { Priority } from '../../generated/prisma';
 import { TaskPermissions } from './task.permissions';
@@ -16,17 +16,14 @@ async function withBoardMoveLock<T>(boardId: string, fn: () => Promise<T>): Prom
     release = resolve;
   });
 
-  boardMoveLocks.set(
-    boardId,
-    prev.finally(() => current)
-  );
+  boardMoveLocks.set(boardId, current);
 
   try {
     await prev;
     return await fn();
   } finally {
     release();
-    if (boardMoveLocks.get(boardId) === prev.finally(() => current)) {
+    if (boardMoveLocks.get(boardId) === current) {
       boardMoveLocks.delete(boardId);
     }
   }
@@ -146,48 +143,40 @@ export class TaskService {
     }
 
     return withBoardMoveLock(access.boardId, async () => {
-      return prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx) => {
         const tasksInNewColumn = await tx.task.findMany({
           where: { columnId: data.columnId, deletedAt: null },
           select: { id: true },
           orderBy: { position: 'asc' },
         });
 
-        let newPosition = data.position;
+        const taskIdsInNewColumn = tasksInNewColumn.map((task) => task.id);
+        const currentTaskIndex = taskIdsInNewColumn.indexOf(taskId);
 
-        if (newPosition >= tasksInNewColumn.length) {
-          newPosition = tasksInNewColumn.length * 100 + 100;
-        } else {
-          const toShift = tasksInNewColumn.slice(newPosition);
+        const normalizedPosition = Math.max(0, Math.min(data.position, taskIdsInNewColumn.length));
+        const orderedTaskIds = [...taskIdsInNewColumn];
 
-          await Promise.all(
-            toShift.map((t, idx) =>
-              tx.task.update({
-                where: { id: t.id },
-                data: {
-                  columnId: data.columnId,
-                  position: (newPosition + idx + 2) * 100,
-                },
-              })
-            )
-          );
-
-          newPosition = (newPosition + 1) * 100;
+        if (currentTaskIndex >= 0) {
+          orderedTaskIds.splice(currentTaskIndex, 1);
         }
 
-        return tx.task.update({
-          where: { id: taskId },
-          data: { columnId: data.columnId, position: newPosition },
-          include: {
-            reporter: {
-              select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
+        orderedTaskIds.splice(normalizedPosition, 0, taskId);
+
+        for (const [index, orderedTaskId] of orderedTaskIds.entries()) {
+          await tx.task.update({
+            where: { id: orderedTaskId },
+            data: {
+              columnId: data.columnId,
+              position: (index + 1) * 100,
             },
-            assignee: {
-              select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
-            },
-          },
-        });
+          });
+        }
+      }, {
+        timeout: 20_000,
+        maxWait: 20_000,
       });
+
+      return this.taskRepository.findById(taskId);
     });
   }
 
@@ -227,14 +216,28 @@ export class TaskService {
     }
 
     await prisma.$transaction(async (tx) => {
+      const tasksInColumn = await tx.task.findMany({
+        where: { columnId, deletedAt: null },
+        select: { id: true },
+        orderBy: { position: 'asc' },
+      });
+
+      const taskIdSet = new Set(tasksInColumn.map((task) => task.id));
+      if (taskIds.length !== tasksInColumn.length || taskIds.some((id) => !taskIdSet.has(id))) {
+        throw new BadRequestError('Invalid task reorder payload');
+      }
+
       await Promise.all(
-        taskIds.map((taskId, idx) =>
+        taskIds.map((orderedTaskId, idx) =>
           tx.task.update({
-            where: { id: taskId },
+            where: { id: orderedTaskId },
             data: { position: (idx + 1) * 100 },
           })
         )
       );
+    }, {
+      timeout: 20_000,
+      maxWait: 20_000,
     });
   }
 

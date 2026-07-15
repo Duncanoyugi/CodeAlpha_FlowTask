@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { fetchProjectById } from '@store/slices/projectSlice';
 import { fetchProjectBoards } from '@store/slices/boardSlice';
 import { ROUTES } from '@constants/routes';
-import Button from '@components/ui/Button';
 import Spinner from '@components/ui/Spinner';
+import Button from '@components/ui/Button';
 
 const ProjectDetailPage = () => {
   const { workspaceId, projectId } = useParams<{ workspaceId?: string; projectId?: string }>();

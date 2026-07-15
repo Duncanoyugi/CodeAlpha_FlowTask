@@ -52,9 +52,8 @@ export class WorkspaceController {
   async updateWorkspace(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const userId = (req as any).user?.userId;
-      const userRole = (req as any).userRole;
       const workspaceId = req.params.workspaceId as string;
-      const result = await workspaceService.updateWorkspace(workspaceId, userId, userRole, req.body);
+      const result = await workspaceService.updateWorkspace(workspaceId, userId, req.body);
       
       res.status(HttpStatus.OK).json({
         success: true,

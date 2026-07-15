@@ -12,13 +12,7 @@ export interface SocketEvents {
   'leave:task': (taskId: string) => void;
   'typing:start': (data: { taskId: string; userId: string; userName: string }) => void;
   'typing:stop': (data: { taskId: string; userId: string }) => void;
-  'task:create': (data: any) => void;
-  'task:move': (data: any) => void;
-  'task:update': (data: any) => void;
-  'comment:add': (data: any) => void;
-  'comment:edit': (data: any) => void;
-  'comment:delete': (data: any) => void;
-  
+
   // Server -> Client
   'task:created': (task: Task) => void;
   'task:moved': (data: { task: Task; oldColumnId: string; newColumnId: string }) => void;

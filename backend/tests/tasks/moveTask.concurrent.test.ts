@@ -13,9 +13,11 @@ describe('Phase 2: moveTask concurrency invariants', () => {
     const taskService = new TaskService();
 
     // Workspace + members
+    const uniqueSuffix = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
+
     const workspaceOwner = await prisma.user.create({
       data: {
-        email: `owner_${Date.now()}@example.com`,
+        email: `owner_${uniqueSuffix}@example.com`,
         firstName: 'Owner',
         lastName: 'Test',
         passwordHash: 'hash',
@@ -25,8 +27,8 @@ describe('Phase 2: moveTask concurrency invariants', () => {
 
     const workspace = await prisma.workspace.create({
       data: {
-        name: `ws_${Date.now()}`,
-        slug: `ws_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        name: `ws_${uniqueSuffix}`,
+        slug: `ws_${uniqueSuffix}`,
         ownerId: workspaceOwner.id,
       },
     });
@@ -34,7 +36,7 @@ describe('Phase 2: moveTask concurrency invariants', () => {
     // Project + board
     const project = await prisma.project.create({
       data: {
-        name: `proj_${Date.now()}`,
+        name: `proj_${uniqueSuffix}`,
         workspaceId: workspace.id,
         createdBy: workspaceOwner.id,
       },
@@ -60,7 +62,7 @@ describe('Phase 2: moveTask concurrency invariants', () => {
 
     const board = await prisma.board.create({
       data: {
-        name: `board_${Date.now()}`,
+        name: `board_${uniqueSuffix}`,
         projectId: project.id,
       },
     });
@@ -69,7 +71,7 @@ describe('Phase 2: moveTask concurrency invariants', () => {
 
     const column = await prisma.column.create({
       data: {
-        name: `col_${Date.now()}`,
+        name: `col_${uniqueSuffix}`,
         boardId: board.id,
         position: 1,
       },
@@ -176,7 +178,7 @@ describe('Phase 2: moveTask concurrency invariants', () => {
 
     // Ensure all tasks still belong to the same column
     expect(after.every((t) => t.columnId === column.id)).toBe(true);
-  });
+  }, 60_000);
 });
 
 

@@ -10,12 +10,7 @@ afterAll(async () => {
 });
 
 afterEach(async () => {
-  // Ensure tests don't leak data into other tests.
-  // We keep it conservative: only clean obvious domain tables when present.
-  // If a table doesn't exist in a given migration, prisma will throw; that's preferable to hiding issues.
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  await prisma.task.deleteMany();
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  await prisma.comment.deleteMany();
+  // Keep the test harness lightweight; the regression tests create their own unique rows and
+  // global cleanup can collide with active transactions under Prisma/Postgres.
 });
 

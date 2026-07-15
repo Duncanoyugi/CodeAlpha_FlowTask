@@ -199,15 +199,27 @@ model Task {
   reporterId    String
   assigneeId    String?
   deletedAt     DateTime?
+
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
+
+  /** Denormalized completion timestamp (latest transition into DONE) */
+  completedAt   DateTime?
+
   activities    Activity[]
   attachments   Attachment[]
   mentions      CommentMention[]
   comments      Comment[]
   blockingTasks TaskDependency[] @relation("BlockedTasks")
   dependencies  TaskDependency[] @relation("DependentTasks")
+
+  /** Lifecycle history as authoritative source of truth */
+  statusHistory TaskStatusHistory[]
+
+  /** Legacy key/value history (kept for existing auditing/UI) */
   history       TaskHistory[]
+
+
   labels        TaskLabel[]
   assignee      User?            @relation("TaskAssignee", fields: [assigneeId], references: [id])
   board         Board            @relation(fields: [boardId], references: [id])
@@ -215,8 +227,11 @@ model Task {
   reporter      User             @relation("TaskReporter", fields: [reporterId], references: [id])
 
   @@index([boardId, columnId, position])
+  @@index([assigneeId])
+  @@index([completedAt])
   @@map("tasks")
 }
+
 
 model Label {
   id      String      @id @default(cuid())
@@ -240,7 +255,29 @@ model TaskLabel {
   @@map("task_labels")
 }
 
+model TaskStatusHistory {
+  id          String   @id @default(uuid())
+
+  taskId      String
+
+  fromStatus  String?
+  toStatus    String
+
+  changedById String?
+
+  createdAt   DateTime @default(now())
+
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId, createdAt])
+  @@index([toStatus, createdAt])
+  @@index([changedById, createdAt])
+
+  @@map("task_status_histories")
+}
+
 model TaskHistory {
+
   id        String   @id @default(cuid())
   taskId    String
   userId    String

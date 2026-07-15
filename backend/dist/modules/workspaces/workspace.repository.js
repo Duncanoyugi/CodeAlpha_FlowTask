@@ -38,6 +38,18 @@ class WorkspaceRepository {
         });
         return memberships.map((m) => m.workspace);
     }
+    async findMembershipsByUser(userId) {
+        return prisma_1.prisma.workspaceMember.findMany({
+            where: { userId },
+            select: {
+                workspaceId: true,
+                role: true,
+                workspace: {
+                    select: { ownerId: true },
+                },
+            },
+        });
+    }
     async update(id, data) {
         return prisma_1.prisma.workspace.update({
             where: { id },

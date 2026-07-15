@@ -47,6 +47,19 @@ export class WorkspaceRepository {
     return memberships.map((m) => m.workspace);
   }
 
+  async findMembershipsByUser(userId: string): Promise<Array<{ workspaceId: string; role: Role; workspace: { ownerId: string } }>> {
+    return prisma.workspaceMember.findMany({
+      where: { userId },
+      select: {
+        workspaceId: true,
+        role: true,
+        workspace: {
+          select: { ownerId: true },
+        },
+      },
+    });
+  }
+
   async update(id: string, data: Partial<Workspace>): Promise<Workspace> {
     return prisma.workspace.update({
       where: { id },

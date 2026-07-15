@@ -10,6 +10,8 @@ import activityRoutes from '../modules/activities/activity.routes';
 import notificationRoutes from '../modules/notifications/notification.routes';
 import inviteRoutes from '../modules/invites/invite.routes';
 import searchRoutes from '../modules/search/search.routes';
+import dashboardRoutes from '../modules/dashboard';
+
 
 const router = Router();
 

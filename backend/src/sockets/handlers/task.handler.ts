@@ -8,6 +8,10 @@ import {
   resolveTaskAccess,
 } from '../../permissions/access-resolver';
 import { ForbiddenError } from '../../utils/error';
+import { TaskLifecycleService } from '../../modules/tasks/task.lifecycle.service';
+
+const taskLifecycleService = new TaskLifecycleService();
+
 
 export const registerTaskHandlers = (socket: Socket) => {
   socket.on('task:created', async (data) => {
@@ -111,6 +115,8 @@ export const registerTaskHandlers = (socket: Socket) => {
     try {
       const { taskId, boardId, ...updates } = data;
       const currentUserId = socket.data.userId as string;
+
+
       const access = await resolveTaskAccess(taskId, currentUserId);
 
       if (!TaskPermissions.canUpdateTask(
@@ -126,20 +132,27 @@ export const registerTaskHandlers = (socket: Socket) => {
         throw new SocketForbiddenError('Task does not belong to the specified board');
       }
 
-      const task = await prisma.task.update({
-        where: { id: taskId },
-        data: updates,
-        include: {
-          assignee: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
+      // Enforce lifecycle rules for status transitions.
+      // If client updates include status, route through TaskLifecycleService.
+      const maybeStatus = (updates as any).status as string | undefined;
+
+      const task = maybeStatus
+        ? await taskLifecycleService.changeStatus(taskId, maybeStatus, currentUserId)
+        : await prisma.task.update({
+            where: { id: taskId },
+            data: updates,
+            include: {
+              assignee: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  email: true,
+                },
+              },
             },
-          },
-        },
-      });
+          });
+
 
       socket.to(`board:${boardId}`).emit('task:updated', task);
       socket.to(`task:${taskId}`).emit('task:updated', task);

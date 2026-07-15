@@ -6,6 +6,8 @@ const socket_authz_1 = require("../errors/socket-authz");
 const task_permissions_1 = require("../../modules/tasks/task.permissions");
 const access_resolver_1 = require("../../permissions/access-resolver");
 const error_1 = require("../../utils/error");
+const task_lifecycle_service_1 = require("../../modules/tasks/task.lifecycle.service");
+const taskLifecycleService = new task_lifecycle_service_1.TaskLifecycleService();
 const registerTaskHandlers = (socket) => {
     socket.on('task:created', async (data) => {
         try {
@@ -103,20 +105,25 @@ const registerTaskHandlers = (socket) => {
             if (boardId && boardId !== access.boardId) {
                 throw new socket_authz_1.SocketForbiddenError('Task does not belong to the specified board');
             }
-            const task = await prisma_1.prisma.task.update({
-                where: { id: taskId },
-                data: updates,
-                include: {
-                    assignee: {
-                        select: {
-                            id: true,
-                            firstName: true,
-                            lastName: true,
-                            email: true,
+            // Enforce lifecycle rules for status transitions.
+            // If client updates include status, route through TaskLifecycleService.
+            const maybeStatus = updates.status;
+            const task = maybeStatus
+                ? await taskLifecycleService.changeStatus(taskId, maybeStatus, currentUserId)
+                : await prisma_1.prisma.task.update({
+                    where: { id: taskId },
+                    data: updates,
+                    include: {
+                        assignee: {
+                            select: {
+                                id: true,
+                                firstName: true,
+                                lastName: true,
+                                email: true,
+                            },
                         },
                     },
-                },
-            });
+                });
             socket.to(`board:${boardId}`).emit('task:updated', task);
             socket.to(`task:${taskId}`).emit('task:updated', task);
             socket.emit('task:updated', task);

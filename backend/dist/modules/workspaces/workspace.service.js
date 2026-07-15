@@ -6,6 +6,7 @@ const error_1 = require("../../../src/utils/error");
 const slugify_1 = require("../../../src/utils/slugify");
 const prisma_1 = require("../../generated/prisma");
 const workspace_permissions_1 = require("./workspace.permissions");
+const effective_role_1 = require("../../permissions/effective-role");
 const access_resolver_1 = require("../../permissions/access-resolver");
 class WorkspaceService {
     workspaceRepository;
@@ -24,21 +25,13 @@ class WorkspaceService {
         return slug;
     }
     async createWorkspace(userId, data) {
-        // Authorization for creating a workspace must be enforced server-side.
-        // This codebase models permissions at the workspace-membership level.
-        // If the user is already a member of any workspace, their membership role
-        // determines whether they can create additional workspaces.
-        const memberships = await this.workspaceRepository.findAllByUser(userId);
-        // Capability matrix: MEMBER/VIEWER cannot create workspaces.
-        // We therefore allow creation only if the user is a workspace ADMIN (or first-time bootstrap).
+        const memberships = await this.workspaceRepository.findMembershipsByUser(userId);
         if (memberships.length > 0) {
-            // For current schema we can infer role by checking their membership in any workspace.
-            // WorkspaceRepository does not expose a dedicated membership-role lookup,
-            // so we fetch one member record by scanning existing memberships.
-            // (No client-supplied role is trusted.)
-            const exampleWorkspace = memberships[0];
-            const member = await this.workspaceRepository.findMember(exampleWorkspace.id, userId);
-            if (!member || member.role !== prisma_1.Role.ADMIN) {
+            const canCreateWorkspace = memberships.some((membership) => {
+                const effectiveRole = (0, effective_role_1.computeEffectiveRole)(membership.role, userId, membership.workspace.ownerId);
+                return effectiveRole === 'OWNER' || effectiveRole === 'ADMIN';
+            });
+            if (!canCreateWorkspace) {
                 throw new error_1.ForbiddenError('You do not have permission to create workspaces');
             }
         }
@@ -79,7 +72,7 @@ class WorkspaceService {
             };
         }));
     }
-    async updateWorkspace(workspaceId, userId, userRole, data) {
+    async updateWorkspace(workspaceId, userId, data) {
         const workspace = await this.workspaceRepository.findById(workspaceId);
         if (!workspace) {
             throw new error_1.NotFoundError('Workspace');
@@ -122,7 +115,7 @@ class WorkspaceService {
         await this.workspaceRepository.updateMemberRole(workspaceId, newOwnerId, prisma_1.Role.ADMIN);
         return this.workspaceRepository.findById(workspaceId);
     }
-    async addMember(workspaceId, userId, userRole, targetEmail, role) {
+    async addMember(workspaceId, userId, targetEmail, role) {
         const access = await (0, access_resolver_1.resolveWorkspaceAccess)(workspaceId, userId);
         if (!workspace_permissions_1.WorkspacePermissions.canInviteMembers(access.permissionRole)) {
             throw new error_1.ForbiddenError('You do not have permission to invite members');

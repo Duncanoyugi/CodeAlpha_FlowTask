@@ -14,14 +14,14 @@ async function withBoardMoveLock(boardId, fn) {
     const current = new Promise((resolve) => {
         release = resolve;
     });
-    boardMoveLocks.set(boardId, prev.finally(() => current));
+    boardMoveLocks.set(boardId, current);
     try {
         await prev;
         return await fn();
     }
     finally {
         release();
-        if (boardMoveLocks.get(boardId) === prev.finally(() => current)) {
+        if (boardMoveLocks.get(boardId) === current) {
             boardMoveLocks.delete(boardId);
         }
     }
@@ -102,40 +102,34 @@ class TaskService {
             throw new error_1.ForbiddenError('Cannot move task to a column outside its board');
         }
         return withBoardMoveLock(access.boardId, async () => {
-            return prisma_1.prisma.$transaction(async (tx) => {
+            await prisma_1.prisma.$transaction(async (tx) => {
                 const tasksInNewColumn = await tx.task.findMany({
                     where: { columnId: data.columnId, deletedAt: null },
                     select: { id: true },
                     orderBy: { position: 'asc' },
                 });
-                let newPosition = data.position;
-                if (newPosition >= tasksInNewColumn.length) {
-                    newPosition = tasksInNewColumn.length * 100 + 100;
+                const taskIdsInNewColumn = tasksInNewColumn.map((task) => task.id);
+                const currentTaskIndex = taskIdsInNewColumn.indexOf(taskId);
+                const normalizedPosition = Math.max(0, Math.min(data.position, taskIdsInNewColumn.length));
+                const orderedTaskIds = [...taskIdsInNewColumn];
+                if (currentTaskIndex >= 0) {
+                    orderedTaskIds.splice(currentTaskIndex, 1);
                 }
-                else {
-                    const toShift = tasksInNewColumn.slice(newPosition);
-                    await Promise.all(toShift.map((t, idx) => tx.task.update({
-                        where: { id: t.id },
+                orderedTaskIds.splice(normalizedPosition, 0, taskId);
+                for (const [index, orderedTaskId] of orderedTaskIds.entries()) {
+                    await tx.task.update({
+                        where: { id: orderedTaskId },
                         data: {
                             columnId: data.columnId,
-                            position: (newPosition + idx + 2) * 100,
+                            position: (index + 1) * 100,
                         },
-                    })));
-                    newPosition = (newPosition + 1) * 100;
+                    });
                 }
-                return tx.task.update({
-                    where: { id: taskId },
-                    data: { columnId: data.columnId, position: newPosition },
-                    include: {
-                        reporter: {
-                            select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
-                        },
-                        assignee: {
-                            select: { id: true, firstName: true, lastName: true, email: true, avatar: true },
-                        },
-                    },
-                });
+            }, {
+                timeout: 20_000,
+                maxWait: 20_000,
             });
+            return this.taskRepository.findById(taskId);
         });
     }
     async deleteTask(taskId, userId, permanent = false) {
@@ -167,10 +161,22 @@ class TaskService {
             throw new error_1.ForbiddenError('You do not have permission to reorder tasks');
         }
         await prisma_1.prisma.$transaction(async (tx) => {
-            await Promise.all(taskIds.map((taskId, idx) => tx.task.update({
-                where: { id: taskId },
+            const tasksInColumn = await tx.task.findMany({
+                where: { columnId, deletedAt: null },
+                select: { id: true },
+                orderBy: { position: 'asc' },
+            });
+            const taskIdSet = new Set(tasksInColumn.map((task) => task.id));
+            if (taskIds.length !== tasksInColumn.length || taskIds.some((id) => !taskIdSet.has(id))) {
+                throw new error_1.BadRequestError('Invalid task reorder payload');
+            }
+            await Promise.all(taskIds.map((orderedTaskId, idx) => tx.task.update({
+                where: { id: orderedTaskId },
                 data: { position: (idx + 1) * 100 },
             })));
+        }, {
+            timeout: 20_000,
+            maxWait: 20_000,
         });
     }
 }

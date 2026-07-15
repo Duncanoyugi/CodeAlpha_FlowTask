@@ -49,9 +49,8 @@ class WorkspaceController {
     async updateWorkspace(req, res, next) {
         try {
             const userId = req.user?.userId;
-            const userRole = req.userRole;
             const workspaceId = req.params.workspaceId;
-            const result = await workspaceService.updateWorkspace(workspaceId, userId, userRole, req.body);
+            const result = await workspaceService.updateWorkspace(workspaceId, userId, req.body);
             res.status(http_1.HttpStatus.OK).json({
                 success: true,
                 message: 'Workspace updated successfully',

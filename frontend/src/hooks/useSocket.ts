@@ -1,24 +1,39 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useAppSelector } from '@store/hooks';
 import { socketService } from '@/lib/socket';
 
 export const useSocket = () => {
   const { accessToken, isAuthenticated } = useAppSelector((s) => s.auth);
+  const connectedRef = useRef(false);
 
   const socket = socketService.getSocket();
   const isConnected = socket?.connected ?? false;
 
-  // Establish a single socket connection after auth success.
   useEffect(() => {
-    if (!isAuthenticated || !accessToken) return;
-    if (socketService.getSocket()?.connected) return;
+    if (!isAuthenticated || !accessToken) {
+      if (connectedRef.current) {
+        socketService.disconnect();
+        connectedRef.current = false;
+      }
+      return;
+    }
+
+    if (socketService.getSocket()?.connected) {
+      connectedRef.current = true;
+      return;
+    }
+
     socketService.connect(accessToken);
+    connectedRef.current = true;
+
     return () => {
-      socketService.disconnect();
+      if (connectedRef.current) {
+        socketService.disconnect();
+        connectedRef.current = false;
+      }
     };
   }, [accessToken, isAuthenticated]);
 
-  // Keep reference stable for consumers.
   return useMemo(
     () => ({
       socket: socketService.getSocket(),

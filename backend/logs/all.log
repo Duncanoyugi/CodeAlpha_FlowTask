@@ -1474,3 +1474,21 @@
 2026-06-27 00:16:38:1638 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
 2026-06-27 00:18:27:1827 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
 2026-06-27 00:18:28:1828 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-29 22:14:01:141 [32minfo[39m: [32m🚀 Server running on http://localhost:5000[39m
+2026-06-29 22:14:01:141 [32minfo[39m: [32m📝 Environment: development[39m
+2026-06-29 22:14:01:141 [32minfo[39m: [32m🔗 Frontend URL: http://localhost:5173[39m
+2026-06-29 22:14:01:141 [32minfo[39m: [32m🔌 WebSocket server ready on /socket.io[39m
+2026-06-29 22:16:29:1629 [35mhttp[39m: [35mPOST /api/v1/auth/login[39m
+2026-06-29 22:16:34:1634 [32minfo[39m: [32mUser connected: cmqa05n1y0000b9cwjwdvmo7f (-dgIgPJPDKANgycaAAAC)[39m
+2026-06-29 22:16:34:1634 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-29 22:16:34:1634 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-29 22:16:34:1634 [35mhttp[39m: [35mGET /api/v1/api/v1/users/me/dashboard/member[39m
+2026-06-29 22:16:35:1635 [35mhttp[39m: [35mGET /api/v1/api/v1/users/me/dashboard/member[39m
+2026-06-29 22:16:35:1635 [35mhttp[39m: [35mGET /api/v1/notifications[39m
+2026-06-29 22:16:37:1637 [35mhttp[39m: [35mGET /api/v1/notifications/unread-count[39m
+2026-06-29 22:16:42:1642 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-29 22:16:44:1644 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-29 22:16:47:1647 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/projects[39m
+2026-06-29 22:16:47:1647 [35mhttp[39m: [35mGET /api/v1/workspaces/cmqsq2ht40003b99clm0bb22r/members[39m
+2026-06-29 22:16:47:1647 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
+2026-06-29 22:16:50:1650 [35mhttp[39m: [35mGET /api/v1/workspaces[39m
